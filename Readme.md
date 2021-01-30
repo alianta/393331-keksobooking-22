@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Наталья Хрусталева](https://up.htmlacademy.ru/javascript/22/user/393331).
-* Наставник: `Неизвестно`.
+* Наставник: [Антон Попов](https://htmlacademy.ru/profile/joker).
 
 ---
 
