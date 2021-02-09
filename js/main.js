@@ -1,41 +1,12 @@
 /**
- * Функция, возвращающая случайное целое число из переданного диапазона включительно
+ * Функция, возвращающая случайное число из переданного диапазона включительно
  *
  * @param {number} min - начало диапазона (включительно)
  * @param {number} max - конец диапазона (включительно)
+ * @param {number} n - точность (количество знаков после запятой). Для целых чисел не указывается
  * @returns {number}
  */
-const randomIntegerNumber = function (min, max) {
-  if (min < 0 || max < 0) {
-    return null;//неверный диапазон (может быть только положительный или = 0)
-  }
-  if (min == max) {
-    return Math.floor(min);
-  }
-  let beginNumber = min;
-  let endNumber = max;
-
-  //если начало диапазона генерации больше конца диапазона - поменять их местами
-  if (beginNumber > endNumber) {
-    beginNumber = max;
-    endNumber = min
-  }
-
-  //решение о генерации случайного целого числа взяла с https://learn.javascript.ru/task/random-int-min-max
-  let rand = beginNumber + Math.random() * (endNumber + 1 - beginNumber);
-  return Math.floor(rand);
-}
-
-randomIntegerNumber(2,6);
-
-/**
- * Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно
- *
- * @param {number} min - начало диапазона (включительно)
- * @param {number} max - конец диапазона (включительно)
- * @returns {number}
- */
-const randomFloatNumber = function (min, max, n = 0) {
+const generateRandomNumber = function (min, max, n = 0) {
   if (min < 0 || max < 0) {
     return null; //неверный диапазон (может быть только положительный или = 0)
   }
@@ -126,7 +97,7 @@ const RANDOM_OBJECTS_COUNT = 10;
  */
 const getRandomAuthor = (startString, endString , startRange, endRange) => {
   return {
-    avatar: startString + '0' + randomFloatNumber(startRange, endRange) + endString,
+    avatar: startString + '0' + generateRandomNumber(startRange, endRange) + endString,
   };
 }
 
@@ -142,8 +113,8 @@ const getRandomAuthor = (startString, endString , startRange, endRange) => {
  */
 const getRandomLocation = (startX, endX, startY, endY, precision) => {
   return {
-    x: randomFloatNumber(startX, endX, precision),
-    y: randomFloatNumber(startY, endY, precision),
+    x: generateRandomNumber(startX, endX, precision),
+    y: generateRandomNumber(startY, endY, precision),
   };
 }
 
@@ -157,10 +128,10 @@ const getRandomLocation = (startX, endX, startY, endY, precision) => {
  */
 const getRandomPhotos = (photos, minCount, maxCount) => {
   let result = [];
-  const photosCount = randomFloatNumber(minCount, maxCount);
+  const photosCount = generateRandomNumber(minCount, maxCount);
   const photosLength = photos.length-1;
   for(let i=0; i< photosCount; i++) {
-    const fotoItemNumber = randomFloatNumber(0, photosLength);
+    const fotoItemNumber = generateRandomNumber(0, photosLength);
     result.push(photos[fotoItemNumber]);
   }
   return result;
@@ -173,7 +144,7 @@ const getRandomPhotos = (photos, minCount, maxCount) => {
  * @returns {string} - случайный элемент
  */
 const getArrayRandomItem = (array) => {
-  return array[randomFloatNumber(0, array.length-1)];
+  return array[generateRandomNumber(0, array.length-1)];
 }
 
 /**
@@ -187,10 +158,10 @@ const getRandomAdvertisement = (data) => {
     offer: {
       title: getArrayRandomItem(data.titles),
       address: null,
-      price: randomFloatNumber(data.minPrice, data.maxPrice),
+      price: generateRandomNumber(data.minPrice, data.maxPrice),
       type: getArrayRandomItem(data.types),
-      rooms: randomFloatNumber(data.minRoomCount, data.maxRoomCount),
-      guests: randomFloatNumber(data.minGuests, data.maxGuests),
+      rooms: generateRandomNumber(data.minRoomCount, data.maxRoomCount),
+      guests: generateRandomNumber(data.minGuests, data.maxGuests),
       checkin: getArrayRandomItem(data.checkInOutTimes),
       checkout: getArrayRandomItem(data.checkInOutTimes),
       features: null,
