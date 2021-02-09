@@ -27,123 +27,122 @@ const generateRandomNumber = function (min, max, n = 0) {
   return (n == 0)? Math.floor(rand) : rand.toFixed(n);
 }
 
-const INITIAL_DATA = {
-  avatarTemplateStart: 'img/avatars/user',
-  avatarTemplateEnd: '.png',
-  avatarStartNumber: 1,
-  avatarEndNumber: 8,
-  titles: [
-    'аппартаменты Сакура',
-    'коттедж Зимний',
-    'хостел Лето',
-    'аппартаменты У моря',
-    'отель Москва-река',
-  ],
-  minPrice: 2000,
-  maxPrice: 25000,
-  types: [
-    'palace',
-    'flat',
-    'house',
-    'bungalow',
-  ],
-  minRoomCount: 1,
-  maxRoomCount: 4,
-  minGuests: 1,
-  maxGuests: 6,
-  checkInOutTimes: [
-    '12:00',
-    '13:00',
-    '14:00',
-  ],
-  features: [
-    'wifi',
-    'dishwasher',
-    'parking',
-    'washer',
-    'elevator',
-    'conditioner',
-  ],
-  descriptions: [
-    'просторная комната с видом на Неву',
-    'аппартаменты в самом центре города почти даром!',
-    'однокомнатная квартина у метро',
-    'трехкомнатная квартира для всей семьи',
-  ],
-  photos: [
+const AvatarSetting = {
+  TEMPLATE_START: 'img/avatars/user',
+  TEMPLATE_END: '.png',
+  START_NUMBER: 1,
+  END_NUMBER: 8,
+};
+
+const PhotosSetting = {
+  PHOTOS: [
     'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
     'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
     'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
   ],
-  minPhotosCount: 4,
-  maxPhotosCount: 11,
-  startXLocation: 35.65000,
-  endXLocation: 35.70000,
-  startYLocation: 139.70000,
-  endYLocation: 139.80000,
-  locationPrecision: 5,
+  MIN_COUNT: 4,
+  MAX_COUNT: 11,
+};
+
+const LocationSetting = {
+  START_X: 35.65000,
+  END_X: 35.70000,
+  START_Y: 139.70000,
+  END_Y: 139.80000,
+  PRECISION: 5,
+};
+
+const TITLES = [
+  'аппартаменты Сакура',
+  'коттедж Зимний',
+  'хостел Лето',
+  'аппартаменты У моря',
+  'отель Москва-река',
+];
+
+const TYPES = [
+  'palace',
+  'flat',
+  'house',
+  'bungalow',
+];
+const FEATURE = [
+  'wifi',
+  'dishwasher',
+  'parking',
+  'washer',
+  'elevator',
+  'conditioner',
+];
+
+const DESCRIPTION = [
+  'просторная комната с видом на Неву',
+  'аппартаменты в самом центре города почти даром!',
+  'однокомнатная квартина у метро',
+  'трехкомнатная квартира для всей семьи',
+];
+
+const Price = {
+  MIN: 2000,
+  MAX: 25000,
+};
+
+const RoomSetting = {
+  MIN_COUNT:1,
+  MAX_COUNT: 4,
+  MIN_GUESTS: 1,
+  MAX_GIESTS: 6,
 }
+const CHECK_IN_OUT_TIME = [
+  '12:00',
+  '13:00',
+  '14:00',
+];
+
 
 const RANDOM_OBJECTS_COUNT = 10;
 
 /**
- * Функция, возвращающая объект, содержащий строку — адрес изображения вида img/avatars/user{{xx}}.png, где {{xx}} — это случайное число от 1 до 8 с ведущим нулём.
- *
- * @param {string} startString - начало строки с адресом изображения
- * @param {string} endString - конец строки с адресом изображения
- * @param {number} startRange - начало диапазона для случайного числа в адресе изображения
- * @param {number} endRange - конец диапазона для случайного числа в адресе изображения
- * @returns {object}
- */
-const getRandomAuthor = (startString, endString , startRange, endRange) => {
-  return {
-    avatar: startString + '0' + generateRandomNumber(startRange, endRange) + endString,
-  };
-}
-
-/**
- * Функция, возвращающая объект — местоположение в виде случайных географических координат в заданном диапазоне
- *
- * @param {number} startX - начало диапазона широты (включительно)
- * @param {number} endX - конец диапазона широты (включительно)
- * @param {number} startY - начало диапазона долготы (включительно)
- * @param {number} endY - конец диапазона долготы (включительно)
- * @param {number} precision - точность координат (количество знаков после запятой)
- * @returns {object}
- */
-const getRandomLocation = (startX, endX, startY, endY, precision) => {
-  return {
-    x: generateRandomNumber(startX, endX, precision),
-    y: generateRandomNumber(startY, endY, precision),
-  };
-}
-
-/**
- * Функция, возвращающая массив случайной длины из значений с адресами фотографий
+ * Функция, возвращающая массив случайной длины из значений переданного массива
  *
  * @param {array} photos - массив строк, содержащий адреса фотографий
  * @param {number} minCount - минимальная длина массива
  * @param {number} maxCount - максимальная длина массива
- * @returns {array} - массив случайной длины, содержащий строки адресами фотографий из массива photos в случайном порядке
+ * @returns {array} - массив случайной длины, содержащий значения переданного массива в случайном порядке
  */
-const getRandomPhotos = (photos, minCount, maxCount) => {
-  let result = [];
-  const photosCount = generateRandomNumber(minCount, maxCount);
-  const photosLength = photos.length-1;
-  for(let i=0; i< photosCount; i++) {
-    const fotoItemNumber = generateRandomNumber(0, photosLength);
-    result.push(photos[fotoItemNumber]);
+const getNewRandomArray = (array, minCount, maxCount) => {
+  let newArray = [];
+  const newArrayCount = generateRandomNumber(minCount, maxCount);
+  const arrayLength = array.length-1;
+  for(let i=0; i< newArrayCount; i++) {
+    const itemNumber = generateRandomNumber(0, arrayLength);
+    newArray.push(array[itemNumber]);
   }
-  return result;
+  return newArray;
 }
 
 /**
+ * Функция, возвращающая массив случайной длины из значений переданного массива без повторений элементов
+ * @param {array} array -исходный массив
+ * @returns {array} - массив случайной длины, содержащий значения переданного массива в случайном порядке без повторений
+ */
+const getNewRandomArrayWithoutRepeat = (array) => {
+  let newArray = [];
+  const newArrayLength = generateRandomNumber(1, array.length);
+  for(let i=0; i< newArrayLength; i++) {
+    const newElementNumber = generateRandomNumber(i, array.length - 1);
+    newArray.push(array[newElementNumber]);
+    [array[i], array[newElementNumber]] = [array[newElementNumber], array[i]];
+  }
+  return newArray;
+}
+/**
  * Функция, возвращающая случайный элемент из переданного массива.
  *
- * @param {array} descriptions - массив
+ * @param {array} - массив
  * @returns {string} - случайный элемент
  */
-const getArrayRandomItem = (array) => {
+const getRandomItemFromArray = (array) => {
   return array[generateRandomNumber(0, array.length-1)];
 }
 
@@ -152,23 +151,32 @@ const getArrayRandomItem = (array) => {
  *
  * @returns {object}
  */
-const getRandomAdvertisement = (data) => {
+const getRandomAdvertisement = () => {
+
+  const locationX = generateRandomNumber(LocationSetting.START_X, LocationSetting.END_X, LocationSetting.PRECISION);
+  const locationY = generateRandomNumber(LocationSetting.START_Y, LocationSetting.END_Y, LocationSetting.PRECISION);
+
   return {
-    author: getRandomAuthor(data.avatarTemplateStart, data.avatarTemplateEnd, data.avatarStartNumber, data.avatarEndNumber),
-    offer: {
-      title: getArrayRandomItem(data.titles),
-      address: null,
-      price: generateRandomNumber(data.minPrice, data.maxPrice),
-      type: getArrayRandomItem(data.types),
-      rooms: generateRandomNumber(data.minRoomCount, data.maxRoomCount),
-      guests: generateRandomNumber(data.minGuests, data.maxGuests),
-      checkin: getArrayRandomItem(data.checkInOutTimes),
-      checkout: getArrayRandomItem(data.checkInOutTimes),
-      features: null,
-      description: getArrayRandomItem(data.descriptions),
-      photos: getRandomPhotos(data.photos, data.minPhotosCount, data.maxPhotosCount),
+    author: {
+      avatar: AvatarSetting.TEMPLATE_START + '0' + generateRandomNumber(AvatarSetting.START_NUMBER, AvatarSetting.END_NUMBER) + AvatarSetting.TEMPLATE_END,
     },
-    location: getRandomLocation(data.startXLocation, data.endXLocation, data.startYLocation, data.endYLocation, data.locationPrecision),
+    offer: {
+      title: getRandomItemFromArray(TITLES),
+      address: `${locationX}, ${locationY}`,
+      price: generateRandomNumber(Price.MIN, Price.MAX),
+      type: getRandomItemFromArray(TYPES),
+      rooms: generateRandomNumber(RoomSetting.MIN_COUNT, RoomSetting.MAX_COUNT),
+      guests: generateRandomNumber(RoomSetting.MIN_GUESTS, RoomSetting.MAX_GIESTS),
+      checkin: getRandomItemFromArray(CHECK_IN_OUT_TIME),
+      checkout: getRandomItemFromArray(CHECK_IN_OUT_TIME),
+      features: getNewRandomArrayWithoutRepeat(FEATURE),
+      description: getRandomItemFromArray(DESCRIPTION),
+      photos: getNewRandomArray(PhotosSetting.PHOTOS, PhotosSetting.MIN_COUNT, PhotosSetting.MAX_COUNT),
+    },
+    location: {
+      x: locationX,
+      y: locationY,
+    },
   }
 }
 
@@ -178,6 +186,6 @@ const getRandomAdvertisement = (data) => {
  * @returns {array}
  */
 const getRandomArrayAdvertisements = (count) => {
-  return new Array(count).fill(null).map(() => getRandomAdvertisement(INITIAL_DATA));
+  return new Array(count).fill(null).map(() => getRandomAdvertisement());
 }
 getRandomArrayAdvertisements(RANDOM_OBJECTS_COUNT)
