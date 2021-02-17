@@ -24,25 +24,16 @@ const showCard = (data) => {
   adCardElement.querySelector('.popup__type').textContent = TYPES.get(data.offer.type);
   adCardElement.querySelector('.popup__text--capacity').textContent = `${data.offer.rooms} комнаты для ${data.offer.guests} гостей`;
   adCardElement.querySelector('.popup__text--time').textContent = `Заезд после ${data.offer.checkin}, выезд до ${data.offer.checkout}`;
-  //features - не ясно как это отображать (скрыть неактивные)
-  if (!data.offer.features.includes('wifi')) {
-    adCardElement.querySelector('.popup__feature--wifi').style.display = 'none';
+  const cardFeatures = adCardElement.querySelector('.popup__features');
+  const cardFeature = adCardElement.querySelector('.popup__feature');
+  while (cardFeatures.firstChild) {
+    cardFeatures.removeChild(cardFeatures.firstChild);
   }
-  if (!data.offer.features.includes('dishwasher')) {
-    adCardElement.querySelector('.popup__feature--dishwasher').style.display = 'none';
-  }
-  if (!data.offer.features.includes('parking')) {
-    adCardElement.querySelector('.popup__feature--parking').style.display = 'none';
-  }
-  if (!data.offer.features.includes('washer')) {
-    adCardElement.querySelector('.popup__feature--washer').style.display = 'none';
-  }
-  if (!data.offer.features.includes('elevator')) {
-    adCardElement.querySelector('.popup__feature--elevator').style.display = 'none';
-  }
-  if (!data.offer.features.includes('conditioner')) {
-    adCardElement.querySelector('.popup__feature--conditioner').style.display = 'none';
-  }
+  data.offer.features.forEach((feature) => {
+    const newFeature = cardFeature.cloneNode(true);
+    newFeature.setAttribute('class', 'popup__feature popup__feature--'+feature);
+    cardFeatures.appendChild(newFeature);
+  });
 
   adCardElement.querySelector('.popup__description').textContent = data.offer.description;
 
