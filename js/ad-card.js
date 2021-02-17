@@ -11,49 +11,51 @@ const adCardTemplate = document.querySelector('#card').content.querySelector('.p
 const map = document.querySelector('#map-canvas');
 const adCards = getRandomArrayAdvertisements(RANDOM_AD_CARD_COUNT);
 
-const adCardFragment = document.createDocumentFragment();
-
-adCards.forEach((card)=>{
+/**
+ * Функция создания и показа карточки по html шаблону
+ * data {obkect} - объект, содержащий данные, которые необходимо вставить в карточку
+ */
+const showCard = (data) => {
   const adCardElement = adCardTemplate.cloneNode(true);
-  adCardElement.querySelector('.popup__avatar').src = card.author.avatar;
-  adCardElement.querySelector('.popup__title').textContent = card.offer.title;
-  adCardElement.querySelector('.popup__text--address').textContent = card.offer.address;
-  adCardElement.querySelector('.popup__text--price').textContent = `${card.offer.price} ₽/ночь`;
-  adCardElement.querySelector('.popup__type').textContent = TYPES.get(card.offer.type);
-  adCardElement.querySelector('.popup__text--capacity').textContent = `${card.offer.rooms} комнаты для ${card.offer.guests} гостей`;
-  adCardElement.querySelector('.popup__text--time').textContent = `Заезд после ${card.offer.checkin}, выезд до ${card.offer.checkout}`;
+  adCardElement.querySelector('.popup__avatar').src = data.author.avatar;
+  adCardElement.querySelector('.popup__title').textContent = data.offer.title;
+  adCardElement.querySelector('.popup__text--address').textContent = data.offer.address;
+  adCardElement.querySelector('.popup__text--price').textContent = `${data.offer.price} ₽/ночь`;
+  adCardElement.querySelector('.popup__type').textContent = TYPES.get(data.offer.type);
+  adCardElement.querySelector('.popup__text--capacity').textContent = `${data.offer.rooms} комнаты для ${data.offer.guests} гостей`;
+  adCardElement.querySelector('.popup__text--time').textContent = `Заезд после ${data.offer.checkin}, выезд до ${data.offer.checkout}`;
   //features - не ясно как это отображать (скрыть неактивные)
-  if (!card.offer.features.includes('wifi')) {
+  if (!data.offer.features.includes('wifi')) {
     adCardElement.querySelector('.popup__feature--wifi').style.display = 'none';
   }
-  if (!card.offer.features.includes('dishwasher')) {
+  if (!data.offer.features.includes('dishwasher')) {
     adCardElement.querySelector('.popup__feature--dishwasher').style.display = 'none';
   }
-  if (!card.offer.features.includes('parking')) {
+  if (!data.offer.features.includes('parking')) {
     adCardElement.querySelector('.popup__feature--parking').style.display = 'none';
   }
-  if (!card.offer.features.includes('washer')) {
+  if (!data.offer.features.includes('washer')) {
     adCardElement.querySelector('.popup__feature--washer').style.display = 'none';
   }
-  if (!card.offer.features.includes('elevator')) {
+  if (!data.offer.features.includes('elevator')) {
     adCardElement.querySelector('.popup__feature--elevator').style.display = 'none';
   }
-  if (!card.offer.features.includes('conditioner')) {
+  if (!data.offer.features.includes('conditioner')) {
     adCardElement.querySelector('.popup__feature--conditioner').style.display = 'none';
   }
 
-  adCardElement.querySelector('.popup__description').textContent = card.offer.description;
+  adCardElement.querySelector('.popup__description').textContent = data.offer.description;
 
   //popup__photos - не ясно как это - Я копировала шиблон img и добавила ещё такие же, но с другими адресами
   const cardPhotos = adCardElement.querySelector('.popup__photos')
   const cardPhoto = cardPhotos.querySelector('.popup__photo');
-  card.offer.photos.forEach((photo) => {
+  cardPhoto.remove();
+  data.offer.photos.forEach((photo) => {
     const newPhoto = cardPhoto.cloneNode(true);
     newPhoto.src = photo;
     cardPhotos.appendChild(newPhoto);
   });
+  map.appendChild(adCardElement);
+}
 
-  adCardFragment.appendChild(adCardElement);
-});
-
-map.appendChild(adCardFragment.firstChild);
+showCard(adCards[0]);
