@@ -1,5 +1,3 @@
-import {getRandomArrayAdvertisements} from './data.js';
-const RANDOM_AD_CARD_COUNT = 10;
 const TYPES = new Map([
   ['palace', 'Дворец'],
   ['flat', 'Квартира'],
@@ -9,7 +7,6 @@ const TYPES = new Map([
 
 const adCardTemplate = document.querySelector('#card').content.querySelector('.popup');
 const map = document.querySelector('#map-canvas');
-const adCards = getRandomArrayAdvertisements(RANDOM_AD_CARD_COUNT);
 
 /**
  * Функция создания и показа карточки по html шаблону
@@ -49,4 +46,4 @@ const showCard = (data) => {
   map.appendChild(adCardElement);
 }
 
-showCard(adCards[0]);
+export {showCard};

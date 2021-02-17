@@ -1,6 +1,6 @@
-/*import {getRandomArrayAdvertisements} from './data.js'
+import {getRandomArrayAdvertisements} from './data.js'
+import {showCard} from './ad-card.js';
 
 const RANDOM_OBJECTS_COUNT = 10;
-getRandomArrayAdvertisements(RANDOM_OBJECTS_COUNT)
-*/
-import './ad-card.js';
+const adCards = getRandomArrayAdvertisements(RANDOM_OBJECTS_COUNT)
+showCard(adCards[0]);
