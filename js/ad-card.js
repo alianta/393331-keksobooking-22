@@ -34,7 +34,6 @@ const showCard = (data) => {
 
   adCardElement.querySelector('.popup__description').textContent = data.offer.description;
 
-  //popup__photos - не ясно как это - Я копировала шиблон img и добавила ещё такие же, но с другими адресами
   const cardPhotos = adCardElement.querySelector('.popup__photos')
   const cardPhoto = cardPhotos.querySelector('.popup__photo');
   cardPhoto.remove();
