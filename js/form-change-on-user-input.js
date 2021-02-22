@@ -1,5 +1,7 @@
 const elementType = document.querySelector('#type');
 const elementPrice = document.querySelector('#price');
+const elementCheckInTime = document.querySelector('#timein');
+const elementCheckOutTime = document.querySelector('#timeout');
 const PRICE_FOR_TYPE = new Map([
   ['palace', 10000],
   ['flat', 1000],
@@ -22,7 +24,12 @@ const formChangeOnUserInput = () => {
   elementType.addEventListener('change', () => {
     chaneDefaultPrice(PRICE_FOR_TYPE.get(elementType.value));
   });
-
+  elementCheckInTime.addEventListener('change', () => {
+    elementCheckOutTime.value = elementCheckInTime.value;
+  });
+  elementCheckOutTime.addEventListener('change', () => {
+    elementCheckInTime.value = elementCheckOutTime.value;
+  });
 }
 
 export {formChangeOnUserInput};
