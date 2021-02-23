@@ -13,8 +13,8 @@ const PRICE_FOR_TYPE = new Map([
  * @param {number} newMinPrice - новое min значение цены
  */
 const chaneDefaultPrice = (newMinPrice) => {
-  elementPrice.placeholder=newMinPrice;
-  elementPrice.min=newMinPrice;
+  elementPrice.placeholder = elementPrice.min = newMinPrice;
+  ;
 }
 
 /**
