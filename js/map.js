@@ -1,6 +1,9 @@
 /* global L:readonly */
 import {formActive, mapFiltersActive} from './form.js';
 
+/**
+ * Функция загрузки интерактивной карты
+ */
 const loadMap = () => {
   const map = L.map('map-canvas')
     .on('load', () => {

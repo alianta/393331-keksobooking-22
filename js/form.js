@@ -3,6 +3,9 @@ const formInteractivElements = form.querySelectorAll('fieldset');
 const mapFilter = document.querySelector('.map__filters');
 const mapFilterInteractiveElements = mapFilter.querySelectorAll('fieldset, select');
 
+/**
+ * Функция перевода формы в неактивное состояние
+ */
 const formDisable = () => {
   form.classList.add('ad-form--disabled');
   formInteractivElements.forEach((element) => {
@@ -10,6 +13,9 @@ const formDisable = () => {
   });
 }
 
+/**
+ * Функция перевода формы в активное состояние
+ */
 const formActive = () => {
   form.classList.remove('ad-form--disabled');
   formInteractivElements.forEach((element) => {
@@ -17,6 +23,9 @@ const formActive = () => {
   });
 }
 
+/**
+ * Функция перевода формы с фильтрами в неактивное состояние
+ */
 const mapFiltersDisable = () => {
   mapFilter.classList.add('map__filters--disabled');
   mapFilterInteractiveElements.forEach((element) => {
@@ -24,6 +33,9 @@ const mapFiltersDisable = () => {
   });
 }
 
+/**
+ * Функция перевода формы в фильтрами в активное состояние
+ */
 const mapFiltersActive = () => {
   mapFilter.classList.remove('map__filters--disabled');
   mapFilterInteractiveElements.forEach((element) => {

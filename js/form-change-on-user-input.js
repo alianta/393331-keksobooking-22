@@ -8,13 +8,13 @@ const PRICE_FOR_TYPE = new Map([
   ['house', 5000],
   ['bungalow', 0],
 ]);
+
 /**
  * Функция изменения min значания поля prie и plaleholder формы
  * @param {number} newMinPrice - новое min значение цены
  */
 const chaneDefaultPrice = (newMinPrice) => {
   elementPrice.placeholder = elementPrice.min = newMinPrice;
-  ;
 }
 
 /**
