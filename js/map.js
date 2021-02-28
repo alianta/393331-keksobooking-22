@@ -1,6 +1,7 @@
 /* global L:readonly */
 import {formActive, mapFiltersActive, showCoordinate} from './form.js';
 import {getRandomArrayAdvertisements} from './data.js';
+import {createCard} from './create-card.js';
 
 const map = L.map('map-canvas');
 const COORDINATE_PRECISION = 5;
@@ -54,19 +55,26 @@ const loadMap = () => {
 
 /**
  * Функция добавления маркера на карту
- * @param {*} marker  - маркер Leflet
+ * @param {Leflet marker} marker  - маркер Leflet
+ * @param {text} markerPopup   - информация, выводимя в popup при нажатии на маркер
  */
-const addMarkerToMap = (marker) => {
+const addMarkerToMap = (marker, markerPopup = null) => {
   marker.on('move', () => {
     const currentCoordinate = mainPinMarker.getLatLng();
     showCoordinate(`${currentCoordinate.lat.toFixed(COORDINATE_PRECISION)}, ${currentCoordinate.lng.toFixed(COORDINATE_PRECISION)}`);
   }).addTo(map);
+
+  if(markerPopup){
+    marker.bindPopup(markerPopup);
+  }
 }
 
-const addCommonMarkers = () => {
+/**
+ * Функция создания маркеров объявлений и добавления их на карту
+ */
+const createCommonMarkers = () => {
   const advertisements = getRandomArrayAdvertisements(ADVERTISEMENT_COUNT);
   advertisements.forEach((ad) => {
-    //ad.location.x
     addMarkerToMap(new L.marker(
       {
         lat: ad.location.x,
@@ -76,12 +84,11 @@ const addCommonMarkers = () => {
         draggable: false,
         icon: commonPinIcon,
       },
-    ),
-    );
+    ),createCard(ad));
   })
 }
 
 addMarkerToMap(mainPinMarker);
-addCommonMarkers();
+createCommonMarkers();
 
 export {loadMap};

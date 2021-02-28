@@ -46,7 +46,7 @@ const mapFiltersActive = () => {
 
 /**
  * Функция отображения координат в поле адрес
- * string {string} - строка содержащая координаты через запятую.
+ * @param {string} string  - строка содержащая координаты через запятую.
  */
 const showCoordinate = (string) => {
   address.setAttribute('readonly', 'readonly');
