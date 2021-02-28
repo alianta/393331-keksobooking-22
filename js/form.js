@@ -2,6 +2,7 @@ const form = document.querySelector('.ad-form');
 const formInteractivElements = form.querySelectorAll('fieldset');
 const mapFilter = document.querySelector('.map__filters');
 const mapFilterInteractiveElements = mapFilter.querySelectorAll('fieldset, select');
+const address = form.querySelector('#address');
 
 /**
  * Функция перевода формы в неактивное состояние
@@ -43,4 +44,12 @@ const mapFiltersActive = () => {
   });
 }
 
-export {formDisable, mapFiltersDisable, formActive, mapFiltersActive};
+/**
+ * Функция отображения координат в поле адрес
+ * string {string} - строка содержащая координаты через запятую.
+ */
+const showCoordinate = (string) => {
+  address.setAttribute('readonly', 'readonly');
+  address.setAttribute('value',string);
+}
+export {formDisable, mapFiltersDisable, formActive, mapFiltersActive, showCoordinate};
