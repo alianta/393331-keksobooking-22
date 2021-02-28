@@ -1,21 +1,34 @@
-const formDisable = () => {
-  const form = document.querySelector('.ad-form');
-  form.classList.add('ad-form--disabled');
-  const formInteractivElements = form.querySelectorAll('fieldset');
+const form = document.querySelector('.ad-form');
+const formInteractivElements = form.querySelectorAll('fieldset');
+const mapFilter = document.querySelector('.map__filters');
+const mapFilterInteractiveElements = mapFilter.querySelectorAll('fieldset, select');
 
+const formDisable = () => {
+  form.classList.add('ad-form--disabled');
   formInteractivElements.forEach((element) => {
     element.setAttribute('disabled', 'disabled');
   });
 }
 
-const mapFiltersDisable = () => {
-  const mapFilter = document.querySelector('.map__filters');
-  mapFilter.classList.add('map__filters--disabled');
-  const mapFilterInteractiveElements = mapFilter.querySelectorAll('fieldset, select');
+const formActive = () => {
+  form.classList.remove('ad-form--disabled');
+  formInteractivElements.forEach((element) => {
+    element.removeAttribute('disabled', 'disabled');
+  });
+}
 
+const mapFiltersDisable = () => {
+  mapFilter.classList.add('map__filters--disabled');
   mapFilterInteractiveElements.forEach((element) => {
     element.setAttribute('disabled', 'disabled');
   });
 }
 
-export {formDisable, mapFiltersDisable};
+const mapFiltersActive = () => {
+  mapFilter.classList.remove('map__filters--disabled');
+  mapFilterInteractiveElements.forEach((element) => {
+    element.removeAttribute('disabled', 'disabled');
+  });
+}
+
+export {formDisable, mapFiltersDisable, formActive, mapFiltersActive};
