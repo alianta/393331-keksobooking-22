@@ -6,13 +6,14 @@ const TYPES = new Map([
 ]);
 
 const adCardTemplate = document.querySelector('#card').content.querySelector('.popup');
-const map = document.querySelector('#map-canvas');
+//const map = document.querySelector('#map-canvas');
 
 /**
- * Функция создания и показа карточки по html шаблону
- * data {obkect} - объект, содержащий данные, которые необходимо вставить в карточку
+ * Функция создания карточки по html шаблону.
+ * @param {object} data  - объект, содержащий данные, которые необходимо вставить в карточку
+ * @returns {htmlelement} - html элемент - карточка, созданнная по шаблону
  */
-const showCard = (data) => {
+const createCard = (data) => {
   const adCardElement = adCardTemplate.cloneNode(true);
   adCardElement.querySelector('.popup__avatar').src = data.author.avatar;
   adCardElement.querySelector('.popup__title').textContent = data.offer.title;
@@ -42,7 +43,8 @@ const showCard = (data) => {
     newPhoto.src = photo;
     cardPhotos.appendChild(newPhoto);
   });
-  map.appendChild(adCardElement);
+  //map.appendChild(adCardElement);
+  return adCardElement;
 }
 
-export {showCard};
+export {createCard};
