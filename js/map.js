@@ -4,6 +4,9 @@ import {getRandomArrayAdvertisements} from './data.js';
 import {createCard} from './create-card.js';
 
 const map = L.map('map-canvas');
+const LATITUDE = 35.6894;
+const LONGITUDE = 139.692;
+const MAP_ZOOM = 10;
 const COORDINATE_PRECISION = 5;
 const ADVERTISEMENT_COUNT = 10;
 const mainPinIcon = L.icon({
@@ -19,8 +22,8 @@ const commonPinIcon = L.icon({
 
 const mainPinMarker = L.marker(
   {
-    lat: 35.6894,
-    lng: 139.692,
+    lat: LATITUDE,
+    lng: LONGITUDE,
   },
   {
     draggable: true,
@@ -39,9 +42,9 @@ const loadMap = () => {
     showCoordinate(`${currentCoordinate.lat.toFixed(COORDINATE_PRECISION)}, ${currentCoordinate.lng.toFixed(COORDINATE_PRECISION)}`);
   })
     .setView({
-      lat: 35.6894,
-      lng: 139.692,
-    }, 10);
+      lat: LATITUDE,
+      lng: LONGITUDE,
+    }, MAP_ZOOM);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
