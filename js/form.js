@@ -94,8 +94,12 @@ const titleInputValidation = () => {
  * Функция валидации поля "Цена за ночь" формы
  */
 const priceInputValidation = () => {
-  const minPrice = priceInput.min;
-  const maxPrice = priceInput.max;
+  let minPrice = priceInput.min;
+  let maxPrice = priceInput.max;
+  priceInput.addEventListener('focus',() => {
+    minPrice = priceInput.min;
+    maxPrice = priceInput.max;
+  });
 
   priceInput.addEventListener('invalid', () => {
     if (priceInput.validity.rangeUnderflow) {
