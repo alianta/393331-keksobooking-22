@@ -5,9 +5,13 @@ const mapFilterInteractiveElements = mapFilter.querySelectorAll('fieldset, selec
 const address = form.querySelector('#address');
 const titleInput = form.querySelector('#title');
 const priceInput = form.querySelector('#price');
+const roomCount = form.querySelector('#room_number');
+const capacityCount = form.querySelector('#capacity');
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
+const NOT_FOR_GUESTS_ROOM_VALUE = 100;
+const NOT_FOR_GUESTS_CAPACITY_VALUE = 0;
 
 
 /**
@@ -129,10 +133,42 @@ const priceInputValidation = () => {
 }
 
 /**
+ * Функция валидации полей "Количество комнат" и "Количество мест"
+ */
+const roomAndCapacityValidation = () => {
+  roomCount.addEventListener('change', () => {
+
+    if (roomCount.value != NOT_FOR_GUESTS_ROOM_VALUE && capacityCount.value == NOT_FOR_GUESTS_CAPACITY_VALUE) {
+      roomCount.setCustomValidity('Не для гостей возможен только тип комнат "100 комнат"');
+    } else if (roomCount.value < capacityCount.value) {
+      roomCount.setCustomValidity(`Количество комнат должно  быть не меньше  ${capacityCount.value}`);
+    } else {
+      roomCount.setCustomValidity('');
+    }
+
+    roomCount.reportValidity();
+  });
+
+  capacityCount.addEventListener('change', () => {
+
+    if (roomCount.value == NOT_FOR_GUESTS_ROOM_VALUE && capacityCount.value != NOT_FOR_GUESTS_CAPACITY_VALUE) {
+      capacityCount.setCustomValidity('Для типа комнат "100 комнат" возможен вариат только "не для гостей"');
+    } else if (roomCount.value < capacityCount.value || capacityCount.value == NOT_FOR_GUESTS_CAPACITY_VALUE) {
+      capacityCount.setCustomValidity(`Количество гостей должно быть не больше  ${roomCount.value}`);
+    } else {
+      capacityCount.setCustomValidity('');
+    }
+
+    capacityCount.reportValidity();
+  });
+}
+
+/**
  * Функция валидации формы
  */
 const formValidation = () => {
   titleInputValidation();
   priceInputValidation();
+  roomAndCapacityValidation();
 }
 export {formDisable, mapFiltersDisable, formActive, mapFiltersActive, showCoordinate, formValidation};
