@@ -15,6 +15,7 @@ const PRICE_FOR_TYPE = new Map([
  */
 const chaneDefaultPrice = (newMinPrice) => {
   elementPrice.placeholder = elementPrice.min = newMinPrice;
+  elementPrice.setAttribute('min', newMinPrice);
 }
 
 /**

@@ -3,6 +3,16 @@ const formInteractivElements = form.querySelectorAll('fieldset');
 const mapFilter = document.querySelector('.map__filters');
 const mapFilterInteractiveElements = mapFilter.querySelectorAll('fieldset, select');
 const address = form.querySelector('#address');
+const titleInput = form.querySelector('#title');
+const priceInput = form.querySelector('#price');
+const roomCount = form.querySelector('#room_number');
+const capacityCount = form.querySelector('#capacity');
+
+const MIN_TITLE_LENGTH = 30;
+const MAX_TITLE_LENGTH = 100;
+const NOT_FOR_GUESTS_ROOM_VALUE = 100;
+const NOT_FOR_GUESTS_CAPACITY_VALUE = 0;
+
 
 /**
  * Функция перевода формы в неактивное состояние
@@ -52,4 +62,113 @@ const showCoordinate = (string) => {
   address.setAttribute('readonly', 'readonly');
   address.setAttribute('value',string);
 }
-export {formDisable, mapFiltersDisable, formActive, mapFiltersActive, showCoordinate};
+
+/**
+ * Функция валидации поля "заголовок объявления" формы
+ */
+const titleInputValidation = () => {
+  titleInput.addEventListener('invalid', () => {
+    if (titleInput.validity.tooShort) {
+      titleInput.setCustomValidity(`Заголовок объявления должен иметь минимум ${MIN_TITLE_LENGTH} символов`);
+    } else if (titleInput.validity.tooLong) {
+      titleInput.setCustomValidity(`Заголовок объявления не должен превышать ${MAX_TITLE_LENGTH} символов`);
+    } else if (titleInput.validity.valueMissing) {
+      titleInput.setCustomValidity('Обязательное поле');
+    } else {
+      titleInput.setCustomValidity('');
+    }
+  });
+
+  titleInput.addEventListener('input', () => {
+    const valueLength = titleInput.value.length;
+
+    if (valueLength < MIN_TITLE_LENGTH) {
+      titleInput.setCustomValidity(`Взаголовке объявления не хватает ещё ${MIN_TITLE_LENGTH - valueLength} симв.`);
+    } else if (valueLength > MAX_TITLE_LENGTH) {
+      titleInput.setCustomValidity(`В заголовке объявления удалите лишние ${valueLength - MAX_TITLE_LENGTH} симв.`);
+    } else {
+      titleInput.setCustomValidity('');
+    }
+
+    titleInput.reportValidity();
+  });
+}
+
+/**
+ * Функция валидации поля "Цена за ночь" формы
+ */
+const priceInputValidation = () => {
+  let minPrice = priceInput.min;
+  let maxPrice = priceInput.max;
+  priceInput.addEventListener('focus',() => {
+    minPrice = priceInput.min;
+    maxPrice = priceInput.max;
+  });
+
+  priceInput.addEventListener('invalid', () => {
+    if (priceInput.validity.rangeUnderflow) {
+      priceInput.setCustomValidity(`Цена за ночь долна быть не меньше  ${minPrice}`);
+    } else if (priceInput.validity.tooLong) {
+      priceInput.setCustomValidity(`Цена за ночь не долна превышать ${maxPrice}`);
+    } else if (priceInput.validity.rangeOverflow) {
+      priceInput.setCustomValidity('Обязательное поле');
+    } else {
+      priceInput.setCustomValidity('');
+    }
+  });
+
+  priceInput.addEventListener('input', () => {
+    const value = titleInput.value;
+
+    if (value < minPrice) {
+      priceInput.setCustomValidity(`Цена за ночь долна быть не меньше  ${minPrice}`);
+    } else if (value > maxPrice) {
+      priceInput.setCustomValidity(`Цена за ночь не долна превышать ${maxPrice}`);
+    } else {
+      priceInput.setCustomValidity('');
+    }
+
+    priceInput.reportValidity();
+  });
+}
+
+/**
+ * Функция валидации полей "Количество комнат" и "Количество мест"
+ */
+const roomAndCapacityValidation = () => {
+  roomCount.addEventListener('change', () => {
+
+    if (roomCount.value != NOT_FOR_GUESTS_ROOM_VALUE && capacityCount.value == NOT_FOR_GUESTS_CAPACITY_VALUE) {
+      roomCount.setCustomValidity('Не для гостей возможен только тип комнат "100 комнат"');
+    } else if (roomCount.value < capacityCount.value) {
+      roomCount.setCustomValidity(`Количество комнат должно  быть не меньше  ${capacityCount.value}`);
+    } else {
+      roomCount.setCustomValidity('');
+    }
+
+    roomCount.reportValidity();
+  });
+
+  capacityCount.addEventListener('change', () => {
+
+    if (roomCount.value == NOT_FOR_GUESTS_ROOM_VALUE && capacityCount.value != NOT_FOR_GUESTS_CAPACITY_VALUE) {
+      capacityCount.setCustomValidity('Для типа комнат "100 комнат" возможен вариат только "не для гостей"');
+    } else if (roomCount.value < capacityCount.value || capacityCount.value == NOT_FOR_GUESTS_CAPACITY_VALUE) {
+      capacityCount.setCustomValidity(`Количество гостей должно быть не больше  ${roomCount.value}`);
+    } else {
+      capacityCount.setCustomValidity('');
+    }
+
+    capacityCount.reportValidity();
+  });
+}
+
+/**
+ * Функция валидации формы
+ */
+const formValidation = () => {
+  titleInputValidation();
+  priceInputValidation();
+  roomAndCapacityValidation();
+}
+export {formDisable, mapFiltersDisable, formActive, mapFiltersActive, showCoordinate, formValidation};

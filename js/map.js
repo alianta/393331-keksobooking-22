@@ -1,11 +1,12 @@
 /* global L:readonly */
 import {formActive, mapFiltersActive, showCoordinate} from './form.js';
-import {getRandomArrayAdvertisements} from './data.js';
 import {createCard} from './create-card.js';
 
 const map = L.map('map-canvas');
+const LATITUDE = 35.6894;
+const LONGITUDE = 139.692;
+const MAP_ZOOM = 10;
 const COORDINATE_PRECISION = 5;
-const ADVERTISEMENT_COUNT = 10;
 const mainPinIcon = L.icon({
   iconUrl: './leaflet/images/marker-icon.png',
   iconSize: [25, 41],
@@ -19,8 +20,8 @@ const commonPinIcon = L.icon({
 
 const mainPinMarker = L.marker(
   {
-    lat: 35.6894,
-    lng: 139.692,
+    lat: LATITUDE,
+    lng: LONGITUDE,
   },
   {
     draggable: true,
@@ -39,9 +40,9 @@ const loadMap = () => {
     showCoordinate(`${currentCoordinate.lat.toFixed(COORDINATE_PRECISION)}, ${currentCoordinate.lng.toFixed(COORDINATE_PRECISION)}`);
   })
     .setView({
-      lat: 35.6894,
-      lng: 139.692,
-    }, 10);
+      lat: LATITUDE,
+      lng: LONGITUDE,
+    }, MAP_ZOOM);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -71,9 +72,9 @@ const addMarkerToMap = (marker, markerPopup = null) => {
 
 /**
  * Функция создания маркеров объявлений и добавления их на карту
+ * @param {array} advertisements - массив объявлений
  */
-const createCommonMarkers = () => {
-  const advertisements = getRandomArrayAdvertisements(ADVERTISEMENT_COUNT);
+const createCommonMarkers = (advertisements) => {
   advertisements.forEach((ad) => {
     addMarkerToMap(new L.marker(
       {
@@ -89,6 +90,5 @@ const createCommonMarkers = () => {
 }
 
 addMarkerToMap(mainPinMarker);
-createCommonMarkers();
 
-export {loadMap};
+export {loadMap, createCommonMarkers};
