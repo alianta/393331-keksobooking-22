@@ -1,10 +1,11 @@
 import {formChangeOnUserInput} from './form-change-on-user-input.js';
-import {formDisable, mapFiltersDisable} from './form.js';
+import {formDisable, mapFiltersDisable, formValidation} from './form.js';
 import {getRandomArrayAdvertisements} from './data.js';
 import {loadMap, createCommonMarkers} from './map.js';
 
 const ADVERTISEMENT_COUNT = 10;
 
+formValidation();
 formDisable();
 mapFiltersDisable();
 loadMap();
