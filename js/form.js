@@ -4,9 +4,11 @@ const mapFilter = document.querySelector('.map__filters');
 const mapFilterInteractiveElements = mapFilter.querySelectorAll('fieldset, select');
 const address = form.querySelector('#address');
 const titleInput = form.querySelector('#title');
+const priceInput = form.querySelector('#price');
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
+
 
 /**
  * Функция перевода формы в неактивное состояние
@@ -89,9 +91,44 @@ const titleInputValidation = () => {
 }
 
 /**
- * Фугкция валидации формы
+ * Функция валидации поля "Цена за ночь" формы
+ */
+const priceInputValidation = () => {
+  const minPrice = priceInput.min;
+  const maxPrice = priceInput.max;
+
+  priceInput.addEventListener('invalid', () => {
+    if (priceInput.validity.rangeUnderflow) {
+      priceInput.setCustomValidity(`Цена за ночь долна быть не меньше  ${minPrice}`);
+    } else if (priceInput.validity.tooLong) {
+      priceInput.setCustomValidity(`Цена за ночь не долна превышать ${maxPrice}`);
+    } else if (priceInput.validity.rangeOverflow) {
+      priceInput.setCustomValidity('Обязательное поле');
+    } else {
+      priceInput.setCustomValidity('');
+    }
+  });
+
+  priceInput.addEventListener('input', () => {
+    const value = titleInput.value;
+
+    if (value < minPrice) {
+      priceInput.setCustomValidity(`Цена за ночь долна быть не меньше  ${minPrice}`);
+    } else if (value > maxPrice) {
+      priceInput.setCustomValidity(`Цена за ночь не долна превышать ${maxPrice}`);
+    } else {
+      priceInput.setCustomValidity('');
+    }
+
+    priceInput.reportValidity();
+  });
+}
+
+/**
+ * Функция валидации формы
  */
 const formValidation = () => {
   titleInputValidation();
+  priceInputValidation();
 }
 export {formDisable, mapFiltersDisable, formActive, mapFiltersActive, showCoordinate, formValidation};
