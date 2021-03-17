@@ -1,3 +1,8 @@
+const MIN_TITLE_LENGTH = 30;
+const MAX_TITLE_LENGTH = 100;
+const NOT_FOR_GUESTS_ROOM_VALUE = 100;
+const NOT_FOR_GUESTS_CAPACITY_VALUE = 0;
+
 const form = document.querySelector('.ad-form');
 const formInteractivElements = form.querySelectorAll('fieldset');
 const mapFilter = document.querySelector('.map__filters');
@@ -7,12 +12,6 @@ const titleInput = form.querySelector('#title');
 const priceInput = form.querySelector('#price');
 const roomCount = form.querySelector('#room_number');
 const capacityCount = form.querySelector('#capacity');
-
-const MIN_TITLE_LENGTH = 30;
-const MAX_TITLE_LENGTH = 100;
-const NOT_FOR_GUESTS_ROOM_VALUE = 100;
-const NOT_FOR_GUESTS_CAPACITY_VALUE = 0;
-
 
 /**
  * Функция перевода формы в неактивное состояние
