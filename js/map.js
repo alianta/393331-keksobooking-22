@@ -78,8 +78,8 @@ const createCommonMarkers = (advertisements) => {
   advertisements.forEach((ad) => {
     addMarkerToMap(new L.marker(
       {
-        lat: ad.location.x,
-        lng: ad.location.y,
+        lat: ad.location.lat,
+        lng: ad.location.lng,
       },
       {
         draggable: false,
