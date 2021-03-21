@@ -12,6 +12,11 @@ const titleInput = form.querySelector('#title');
 const priceInput = form.querySelector('#price');
 const roomCount = form.querySelector('#room_number');
 const capacityCount = form.querySelector('#capacity');
+const type = form.querySelector('#type');
+const timein = form.querySelector('#timein');
+const timeout = form.querySelector('#timeout');
+const features = form.querySelector('.features');
+const description = form.querySelector('#description');
 
 /**
  * Функция перевода формы в неактивное состояние
@@ -175,28 +180,60 @@ const formValidation = () => {
  * Сброс фильтрации объявлений
  */
 const clearFilter = () => {
-  const filter = document.querySelector('.map__filters');
-  const houseType = filter.querySelector('#housing-type');
+  const houseType = mapFilter.querySelector('#housing-type');
   const houseTypeInitialValue = houseType.querySelector('[selected]').value;
   houseType.value = houseTypeInitialValue;
 
-  const price = filter.querySelector('#housing-price');
+  const price = mapFilter.querySelector('#housing-price');
   const priceInitialValue = price.querySelector('[selected]').value;
   price.value = priceInitialValue;
 
-  const rooms = filter.querySelector('#housing-rooms');
+  const rooms = mapFilter.querySelector('#housing-rooms');
   const roomsInitialValue = rooms.querySelector('[selected]').value;
   rooms.value = roomsInitialValue;
 
-  const guests = filter.querySelector('#housing-guests');
+  const guests = mapFilter.querySelector('#housing-guests');
   const guestsInitialValue = guests.querySelector('[selected]').value;
   guests.value = guestsInitialValue;
 
-  const featuresInputs = filter.querySelector('#housing-features').querySelectorAll('input');
+  const featuresInputs = mapFilter.querySelector('#housing-features').querySelectorAll('input');
   featuresInputs.forEach((input) => {
     if(input.checked){
-      input.checked=false;
+      input.checked = false;
     }
   });
 }
-export {formDisable, mapFiltersDisable, formActive, mapFiltersActive, showCoordinate, formValidation, clearFilter};
+
+/**
+ * Сброс полей формы в исходное состояние
+ */
+const clearForm = () => {
+  titleInput.value = '';
+
+  const typeInitialValue = type.querySelector('[selected]').value;
+  type.value = typeInitialValue;
+
+  priceInput.value = '';
+
+  const timeinInitialValue = timein.querySelector('[selected]').value;
+  timein.value = timeinInitialValue;
+
+  const timeoutInitialValue = timeout.querySelector('[selected').value;
+  timeout.value = timeoutInitialValue;
+
+  const roomCountInitialValue = roomCount.querySelector('[selected]').value;
+  roomCount.value = roomCountInitialValue;
+
+  const capacityCountInitialValue = capacityCount.querySelector('[selected]').value;
+  capacityCount.value = capacityCountInitialValue;
+
+  const featuresInputs = features.querySelectorAll('input');
+  featuresInputs.forEach((input) => {
+    if(input.checked){
+      input.checked = false;
+    }
+  });
+
+  description.value = '';
+}
+export {formDisable, mapFiltersDisable, formActive, mapFiltersActive, showCoordinate, formValidation, clearFilter, clearForm};
