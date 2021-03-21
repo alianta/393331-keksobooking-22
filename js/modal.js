@@ -1,6 +1,7 @@
 import {isEscEvent} from './util.js';
 
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
+const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 const main = document.querySelector('main');
 
 /**
@@ -10,6 +11,10 @@ const addModalWondows = () => {
   const successMessage = successMessageTemplate.cloneNode(true);
   main.appendChild(successMessage);
   main.querySelector('.success').classList.add('visually-hidden');
+
+  const errorMessage = errorMessageTemplate.cloneNode(true);
+  main.appendChild(errorMessage);
+  main.querySelector('.error').classList.add('visually-hidden');
 }
 
 /**
@@ -27,7 +32,29 @@ const onSuccess = () => {
       main.querySelector('.success').classList.add('visually-hidden');
     }
   });
+  //возврат формы в исходное состояние после успешной отправки
 
 }
 
-export {addModalWondows, onSuccess};
+/**
+ * Функция показа и скрытия модального окна при ошибке отправки формы
+ */
+const onError = () => {
+  const errorMessage = main.querySelector('.error');
+  const errorButton = main.querySelector('.error__button');
+  errorMessage.classList.remove('visually-hidden');
+  document.addEventListener('click', () => {
+    main.querySelector('.error').classList.add('visually-hidden');
+  });
+  document.addEventListener('keydown', (evt) => {
+    if (isEscEvent(evt)) {
+      evt.preventDefault();
+      main.querySelector('.error').classList.add('visually-hidden');
+    }
+  });
+  errorButton.addEventListener('click', () => {
+    main.querySelector('.error').classList.add('visually-hidden');
+  });
+}
+
+export {addModalWondows, onSuccess, onError};

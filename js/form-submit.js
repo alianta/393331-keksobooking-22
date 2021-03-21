@@ -1,4 +1,4 @@
-import {onSuccess} from './modal.js';
+import {onSuccess, onError} from './modal.js';
 
 const form = document.querySelector('.ad-form');
 const SERVER_ADDRESS =  'https://22.javascript.pages.academy/keksobooking';
@@ -17,7 +17,10 @@ const submitForm = () => {
         method: 'POST',
         body: formData,
       },
-    ).then(() => onSuccess());
+    )
+      .then(res => res.ok ? res : Promise.reject(res))
+      .then(() => onSuccess())
+      .catch(() => onError());
   });
 }
 
