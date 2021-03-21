@@ -1,4 +1,5 @@
 import {isEscEvent} from './util.js';
+import {clearFilter} from './form.js';
 
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
@@ -32,8 +33,8 @@ const onSuccess = () => {
       main.querySelector('.success').classList.add('visually-hidden');
     }
   });
-  //возврат формы в исходное состояние после успешной отправки
-
+  //возврат фильтра формы в исходное состояние после успешной отправки
+  clearFilter();
 }
 
 /**

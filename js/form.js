@@ -170,4 +170,33 @@ const formValidation = () => {
   priceInputValidation();
   roomAndCapacityValidation();
 }
-export {formDisable, mapFiltersDisable, formActive, mapFiltersActive, showCoordinate, formValidation};
+
+/**
+ * Сброс фильтрации объявлений
+ */
+const clearFilter = () => {
+  const filter = document.querySelector('.map__filters');
+  const houseType = filter.querySelector('#housing-type');
+  const houseTypeInitialValue = houseType.querySelector('[selected]').value;
+  houseType.value = houseTypeInitialValue;
+
+  const price = filter.querySelector('#housing-price');
+  const priceInitialValue = price.querySelector('[selected]').value;
+  price.value = priceInitialValue;
+
+  const rooms = filter.querySelector('#housing-rooms');
+  const roomsInitialValue = rooms.querySelector('[selected]').value;
+  rooms.value = roomsInitialValue;
+
+  const guests = filter.querySelector('#housing-guests');
+  const guestsInitialValue = guests.querySelector('[selected]').value;
+  guests.value = guestsInitialValue;
+
+  const featuresInputs = filter.querySelector('#housing-features').querySelectorAll('input');
+  featuresInputs.forEach((input) => {
+    if(input.checked){
+      input.checked=false;
+    }
+  });
+}
+export {formDisable, mapFiltersDisable, formActive, mapFiltersActive, showCoordinate, formValidation, clearFilter};
