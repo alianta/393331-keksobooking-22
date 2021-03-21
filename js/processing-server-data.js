@@ -1,12 +1,13 @@
 import {createCommonMarkers} from './map.js';
 
+const serverAddress = 'https://22.javascript.pages.academy/keksobooking/data';
 /**
  * Функция получает данные с объявлениями с сервера и отрисовывает их на карте
  */
 const getAdvertisments = () => {
 
 
-  fetch('https://22.javascript.pages.academy/keksobooking/data')
+  fetch(serverAddress)
     .then((response) => response.json())
     .then((advertisements) => {
 
