@@ -1,4 +1,6 @@
 import {clearFilter, clearForm} from './form.js';
+import {resetMainMarker} from './map.js';
+
 const form = document.querySelector('.ad-form');
 
 const resetForm = () => {
@@ -6,6 +8,7 @@ const resetForm = () => {
     evt.preventDefault();
     clearFilter();
     clearForm();
+    resetMainMarker();
   });
 }
 export {resetForm};
