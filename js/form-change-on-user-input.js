@@ -13,7 +13,7 @@ const PRICE_FOR_TYPE = new Map([
  * Функция изменения min значания поля prie и plaleholder формы
  * @param {number} newMinPrice - новое min значение цены
  */
-const chaneDefaultPrice = (newMinPrice) => {
+const changeDefaultPrice = (newMinPrice) => {
   elementPrice.placeholder = elementPrice.min = newMinPrice;
   elementPrice.setAttribute('min', newMinPrice);
 }
@@ -23,7 +23,7 @@ const chaneDefaultPrice = (newMinPrice) => {
  */
 const formChangeOnUserInput = () => {
   elementType.addEventListener('change', () => {
-    chaneDefaultPrice(PRICE_FOR_TYPE.get(elementType.value));
+    changeDefaultPrice(PRICE_FOR_TYPE.get(elementType.value));
   });
   elementCheckInTime.addEventListener('change', () => {
     elementCheckOutTime.value = elementCheckInTime.value;

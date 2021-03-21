@@ -36,6 +36,7 @@ const loadMap = () => {
   map.on('load', () => {
     formActive();
     mapFiltersActive();
+    mainPinMarker._id = 'main';
     const currentCoordinate = mainPinMarker.getLatLng();
     showCoordinate(`${currentCoordinate.lat.toFixed(COORDINATE_PRECISION)}, ${currentCoordinate.lng.toFixed(COORDINATE_PRECISION)}`);
   })
@@ -59,6 +60,7 @@ const loadMap = () => {
  * @param {Leflet marker} marker  - маркер Leflet
  * @param {text} markerPopup   - информация, выводимя в popup при нажатии на маркер
  */
+
 const addMarkerToMap = (marker, markerPopup = null) => {
   marker.on('move', () => {
     const currentCoordinate = mainPinMarker.getLatLng();
@@ -76,19 +78,33 @@ const addMarkerToMap = (marker, markerPopup = null) => {
  */
 const createCommonMarkers = (advertisements) => {
   advertisements.forEach((ad) => {
-    addMarkerToMap(new L.marker(
+    const marker = new L.marker(
       {
-        lat: ad.location.x,
-        lng: ad.location.y,
+        lat: ad.location.lat,
+        lng: ad.location.lng,
       },
       {
         draggable: false,
         icon: commonPinIcon,
       },
-    ),createCard(ad));
+    );
+    marker._id = 'advertisement';
+    addMarkerToMap(marker,createCard(ad));
   })
 }
 
 addMarkerToMap(mainPinMarker);
 
-export {loadMap, createCommonMarkers};
+
+const resetMainMarker = () => {
+  map.setView(L.latLng(LATITUDE,LONGITUDE));
+  map.setZoom(MAP_ZOOM);
+  map.eachLayer(function (layer) {
+    if (layer._id === 'main') {
+      layer.setLatLng([LATITUDE,LONGITUDE]);
+    } /*else if (layer._id === 'advertisement') {
+      map.removeLayer(layer);
+    }*/
+  });
+}
+export {loadMap, createCommonMarkers, resetMainMarker};
