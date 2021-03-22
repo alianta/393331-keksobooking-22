@@ -109,7 +109,7 @@ addMarkerToMap(mainPinMarker);
 const resetMainMarker = () => {
   map.setView(L.latLng(LATITUDE,LONGITUDE));
   map.setZoom(MAP_ZOOM);
-  map.eachLayer(function (layer) {
+  map.eachLayer((layer) => {
     if (layer._id === 'main') {
       layer.setLatLng([LATITUDE,LONGITUDE]);
     }
@@ -120,7 +120,7 @@ const resetMainMarker = () => {
  * Функция удаления всех маркеров объявлений с карты, кроме главного маркера
  */
 const deleteAdvertisementMarkers = () => {
-  map.eachLayer(function (layer) {
+  map.eachLayer((layer) => {
     if (layer._id === 'advertisement') {
       map.removeLayer(layer);
     }
