@@ -8,7 +8,7 @@ const main = document.querySelector('main');
 /**
  * Фцнкция добавления модальный окон в разметку в блок main (окна по умолчанию скрыты)
  */
-const addModalWondows = () => {
+const addModalWindows = () => {
   const successMessage = successMessageTemplate.cloneNode(true);
   main.appendChild(successMessage);
   main.querySelector('.success').classList.add('visually-hidden');
@@ -59,4 +59,4 @@ const onError = () => {
   });
 }
 
-export {addModalWondows, onSuccess, onError};
+export {addModalWindows, onSuccess, onError};

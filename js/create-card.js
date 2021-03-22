@@ -6,7 +6,6 @@ const TYPES = new Map([
 ]);
 
 const adCardTemplate = document.querySelector('#card').content.querySelector('.popup');
-//const map = document.querySelector('#map-canvas');
 
 /**
  * Функция создания карточки по html шаблону.
@@ -43,7 +42,6 @@ const createCard = (data) => {
     newPhoto.src = photo;
     cardPhotos.appendChild(newPhoto);
   });
-  //map.appendChild(adCardElement);
   return adCardElement;
 }
 

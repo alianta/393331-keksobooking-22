@@ -1,10 +1,11 @@
 import {onSuccess, onError} from './modal.js';
 
-const form = document.querySelector('.ad-form');
 const SERVER_ADDRESS =  'https://22.javascript.pages.academy/keksobooking';
 
+const form = document.querySelector('.ad-form');
+
 /**
- * Фцнкция отправки формы
+ * Фцнкция добавления обработчика события "отправка формы"
  */
 const submitForm = () => {
   form.addEventListener('submit', (evt) => {
