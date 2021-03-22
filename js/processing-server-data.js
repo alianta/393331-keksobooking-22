@@ -1,6 +1,7 @@
 import {createCommonMarkers} from './map.js';
 
 const serverAddress = 'https://22.javascript.pages.academy/keksobooking/data';
+const MAX_ADVERTISEMENTS_COUNT = 10;
 /**
  * Функция получает данные с объявлениями с сервера и отрисовывает их на карте
  */
@@ -11,7 +12,7 @@ const getAdvertisments = () => {
     .then((response) => response.json())
     .then((advertisements) => {
 
-      createCommonMarkers(advertisements);
+      createCommonMarkers(advertisements.slice(0, MAX_ADVERTISEMENTS_COUNT));
     })
     .catch(() => {
       //отобразить сообщение что данные не подгрузились
