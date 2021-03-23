@@ -25,15 +25,19 @@ const advertisementFilter = (advertisements) => {
   const priceValue = price.value;
   const houseRoomsValue = houseRooms.value;
   const houseGuestsValue = houseGuests.value;
-  let isType = true;
-  let isPrice = true;
-  let isRooms = true;
-  let isGuests = true;
+  const checkedFeatures = filter.querySelectorAll('input[name="features"]:checked');
+
 
   //удалить маркеры
   deleteAdvertisementMarkers();
 
   advertisements.forEach((ad) => {
+    let isType = true;
+    let isPrice = true;
+    let isRooms = true;
+    let isGuests = true;
+    let isFeatures = true;
+
     if (houseTypeValue !== ANY) {
       isType = ad.offer.type === houseTypeValue;
     }
@@ -55,8 +59,14 @@ const advertisementFilter = (advertisements) => {
     if (houseGuestsValue !== ANY) {
       isGuests = ad.offer.guests.toString() === houseGuestsValue;
     }
-
-    if(isType && isRooms && isGuests && isPrice) {
+    if (checkedFeatures.length) {
+      checkedFeatures.forEach((feature) => {
+        if (ad.offer.features.indexOf(feature.value) === -1) {
+          isFeatures = false;
+        }
+      });
+    }
+    if (isType && isRooms && isGuests && isPrice && isFeatures) {
       filterAdvertisements.push(ad);
     }
   });
