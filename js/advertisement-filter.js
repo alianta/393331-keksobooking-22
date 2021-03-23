@@ -2,6 +2,11 @@ import {deleteAdvertisementMarkers} from './map.js';
 import {createCommonMarkers} from './map.js';
 
 const ANY = 'any';
+const PRICE_LOW = 10000;
+const PRICE_HIGHT = 50000;
+const PRICE_LOW_VALUE = 'low';
+const PRICE_MIDDLE_VALUE = 'middle';
+const PRICE_HIGHT_VALUE = 'high';
 
 const filter = document.querySelector('.map__filters');
 const houseType = filter.querySelector('#housing-type');
@@ -17,9 +22,11 @@ const houseGuests = filter.querySelector('#housing-guests');
 const advertisementFilter = (advertisements) => {
   let filterAdvertisements = [];
   const houseTypeValue = houseType.value;
+  const priceValue = price.value;
   const houseRoomsValue = houseRooms.value;
   const houseGuestsValue = houseGuests.value;
   let isType = true;
+  let isPrice = true;
   let isRooms = true;
   let isGuests = true;
 
@@ -30,6 +37,18 @@ const advertisementFilter = (advertisements) => {
     if (houseTypeValue !== ANY) {
       isType = ad.offer.type === houseTypeValue;
     }
+    if (priceValue !== ANY) {
+      let price;
+      if (ad.offer.price < PRICE_LOW) {
+        price = PRICE_LOW_VALUE;
+      } else if (ad.offer.price > PRICE_HIGHT) {
+        price = PRICE_HIGHT_VALUE;
+      } else {
+        price = PRICE_MIDDLE_VALUE;
+      }
+
+      isPrice = price === priceValue;
+    }
     if (houseRoomsValue !== ANY) {
       isRooms = ad.offer.rooms.toString() === houseRoomsValue;
     }
@@ -37,7 +56,7 @@ const advertisementFilter = (advertisements) => {
       isGuests = ad.offer.guests.toString() === houseGuestsValue;
     }
 
-    if(isType && isRooms && isGuests) {
+    if(isType && isRooms && isGuests && isPrice) {
       filterAdvertisements.push(ad);
     }
   });
