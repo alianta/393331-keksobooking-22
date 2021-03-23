@@ -8,7 +8,7 @@ const LONGITUDE = 139.692;
 const MAP_ZOOM = 10;
 const COORDINATE_PRECISION = 5;
 const mainPinIcon = L.icon({
-  iconUrl: './leaflet/images/marker-icon.png',
+  iconUrl: './img/main-pin.svg',
   iconSize: [25, 41],
   iconAnchor: [12, 41],
 });
@@ -78,33 +78,52 @@ const addMarkerToMap = (marker, markerPopup = null) => {
  */
 const createCommonMarkers = (advertisements) => {
   advertisements.forEach((ad) => {
-    const marker = new L.marker(
-      {
-        lat: ad.location.lat,
-        lng: ad.location.lng,
-      },
-      {
-        draggable: false,
-        icon: commonPinIcon,
-      },
-    );
-    marker._id = 'advertisement';
-    addMarkerToMap(marker,createCard(ad));
+    createCommonMarker(ad);
   })
+}
+
+/**
+ * Функция добавлений одного маркера на карту
+ * @param {object} ad  - объект с данными для объявления
+ */
+const createCommonMarker = (ad) => {
+  const marker = new L.marker(
+    {
+      lat: ad.location.lat,
+      lng: ad.location.lng,
+    },
+    {
+      draggable: false,
+      icon: commonPinIcon,
+    },
+  );
+  marker._id = 'advertisement';
+  addMarkerToMap(marker, createCard(ad));
 }
 
 addMarkerToMap(mainPinMarker);
 
-
+/**
+ * Функция сброса гавного маркера в исходное состояние
+ */
 const resetMainMarker = () => {
-  map.setView(L.latLng(LATITUDE,LONGITUDE));
+  map.setView(L.latLng(LATITUDE, LONGITUDE));
   map.setZoom(MAP_ZOOM);
-  map.eachLayer(function (layer) {
+  map.eachLayer((layer) => {
     if (layer._id === 'main') {
-      layer.setLatLng([LATITUDE,LONGITUDE]);
-    } /*else if (layer._id === 'advertisement') {
-      map.removeLayer(layer);
-    }*/
+      layer.setLatLng([LATITUDE, LONGITUDE]);
+    }
   });
 }
-export {loadMap, createCommonMarkers, resetMainMarker};
+
+/**
+ * Функция удаления всех маркеров объявлений с карты, кроме главного маркера
+ */
+const deleteAdvertisementMarkers = () => {
+  map.eachLayer((layer) => {
+    if (layer._id === 'advertisement') {
+      map.removeLayer(layer);
+    }
+  });
+}
+export {loadMap, createCommonMarkers, resetMainMarker, deleteAdvertisementMarkers, createCommonMarker};

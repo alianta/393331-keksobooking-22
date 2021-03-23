@@ -181,20 +181,16 @@ const formValidation = () => {
  */
 const clearFilter = () => {
   const houseType = mapFilter.querySelector('#housing-type');
-  const houseTypeInitialValue = houseType.querySelector('[selected]').value;
-  houseType.value = houseTypeInitialValue;
+  houseType.value = houseType.querySelector('[selected]').value;
 
   const price = mapFilter.querySelector('#housing-price');
-  const priceInitialValue = price.querySelector('[selected]').value;
-  price.value = priceInitialValue;
+  price.value = price.querySelector('[selected]').value;
 
   const rooms = mapFilter.querySelector('#housing-rooms');
-  const roomsInitialValue = rooms.querySelector('[selected]').value;
-  rooms.value = roomsInitialValue;
+  rooms.value = rooms.querySelector('[selected]').value;
 
   const guests = mapFilter.querySelector('#housing-guests');
-  const guestsInitialValue = guests.querySelector('[selected]').value;
-  guests.value = guestsInitialValue;
+  guests.value = guests.querySelector('[selected]').value;
 
   const featuresInputs = mapFilter.querySelector('#housing-features').querySelectorAll('input');
   featuresInputs.forEach((input) => {
@@ -210,22 +206,17 @@ const clearFilter = () => {
 const clearForm = () => {
   titleInput.value = '';
 
-  const typeInitialValue = type.querySelector('[selected]').value;
-  type.value = typeInitialValue;
+  type.value = type.querySelector('[selected]').value;
 
   priceInput.value = '';
 
-  const timeinInitialValue = timein.querySelector('[selected]').value;
-  timein.value = timeinInitialValue;
+  timein.value = timein.querySelector('[selected]').value;
 
-  const timeoutInitialValue = timeout.querySelector('[selected').value;
-  timeout.value = timeoutInitialValue;
+  timeout.value = timeout.querySelector('[selected').value;
 
-  const roomCountInitialValue = roomCount.querySelector('[selected]').value;
-  roomCount.value = roomCountInitialValue;
+  roomCount.value = roomCount.querySelector('[selected]').value;
 
-  const capacityCountInitialValue = capacityCount.querySelector('[selected]').value;
-  capacityCount.value = capacityCountInitialValue;
+  capacityCount.value = capacityCount.querySelector('[selected]').value;
 
   const featuresInputs = features.querySelectorAll('input');
   featuresInputs.forEach((input) => {
