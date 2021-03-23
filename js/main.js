@@ -5,7 +5,7 @@ import {loadMap, createCommonMarkers} from './map.js';
 import {submitForm} from './form-submit.js';
 import {resetForm} from './form-reset.js';
 import {addModalWindows} from './modal.js';
-import {advertisementFilter, houseTypeChange, priceChange, roomsChange, guestsChange} from './advertisement-filter.js';
+import {changeUserForm} from './advertisement-filter.js';
 
 addModalWindows();
 formValidation();
@@ -14,14 +14,10 @@ mapFiltersDisable();
 loadMap();
 formChangeOnUserInput();
 
-getAdvertisments((wizards) => {
-  createCommonMarkers(wizards);
-  houseTypeChange(() => advertisementFilter(wizards));
-  priceChange(() => advertisementFilter(wizards));
-  roomsChange(() => advertisementFilter(wizards));
-  guestsChange(() => advertisementFilter(wizards));
+getAdvertisments((advertisments) => {
+  createCommonMarkers(advertisments);
+  changeUserForm(advertisments);
 });
 
 submitForm();
 resetForm();
-
