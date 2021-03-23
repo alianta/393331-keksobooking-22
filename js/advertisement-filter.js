@@ -4,8 +4,6 @@ const ANY = 'any';
 const filter = document.querySelector('.map__filters');
 const houseType = filter.querySelector('#housing-type');
 const price = filter.querySelector('#housing-price');
-const rooms = filter.querySelector('#housing-rooms');
-const guests = filter.querySelector('#housing-guests');
 const houseRooms = filter.querySelector('#housing-rooms');
 const houseGuests = filter.querySelector('#housing-guests');
 
@@ -45,42 +43,13 @@ const advertisementFilter = (advertisements) => {
 }
 
 /**
- * Обработчик событий на измнение пользователем фильтра "тип жилья"
+ * Обработчик событий на измнение пользователем фильтра
  * @param {function} cb - функция, вызываемая при наступлении события
  */
-const houseTypeChange = (cb) => {
-  houseType.addEventListener('change', () => {
+const changeUserForm = (cb) => {
+  filter.addEventListener('change', () => {
     cb();
   });
 }
 
-/**
- * Обработчик событий на измнение пользователем фильтра "цена"
- * @param {function} cb - функция, вызываемая при наступлении события
- */
-const priceChange = (cb) => {
-  price.addEventListener('change', () => {
-    cb();
-  });
-}
-
-/**
- * Обработчик событий на измнение пользователем фильтра "количество комнат"
- * @param {function} cb - функция, вызываемая при наступлении события
- */
-const roomsChange = (cb) => {
-  rooms.addEventListener('change', () => {
-    cb();
-  });
-}
-
-/**
- * Обработчик событий на измнение пользователем фильтра "количество гостей"
- * @param {function} cb - функция, вызываемая при наступлении события
- */
-const guestsChange = (cb) => {
-  guests.addEventListener('change', () => {
-    cb();
-  });
-}
-export {advertisementFilter, priceChange, houseTypeChange, roomsChange, guestsChange};
+export {advertisementFilter, changeUserForm};
