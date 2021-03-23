@@ -1,8 +1,9 @@
 /* global L:readonly */
 import {formActive, mapFiltersActive, showCoordinate} from './form.js';
 import {createCard} from './create-card.js';
+import {advertisementFilter} from './advertisement-filter.js';
 
-const map = L.map('map-canvas');
+const MAX_ADVERTISEMENTS_COUNT = 10;
 const LATITUDE = 35.6894;
 const LONGITUDE = 139.692;
 const MAP_ZOOM = 10;
@@ -28,6 +29,7 @@ const mainPinMarker = L.marker(
     icon: mainPinIcon,
   },
 );
+const map = L.map('map-canvas');
 
 /**
  * Функция загрузки интерактивной карты
@@ -77,9 +79,13 @@ const addMarkerToMap = (marker, markerPopup = null) => {
  * @param {array} advertisements - массив объявлений
  */
 const createCommonMarkers = (advertisements) => {
-  advertisements.forEach((ad) => {
-    createCommonMarker(ad);
-  })
+  deleteAdvertisementMarkers();
+
+  advertisementFilter(advertisements)
+    .slice(0, MAX_ADVERTISEMENTS_COUNT)
+    .forEach((ad) => {
+      createCommonMarker(ad);
+    })
 }
 
 /**
@@ -126,4 +132,4 @@ const deleteAdvertisementMarkers = () => {
     }
   });
 }
-export {loadMap, createCommonMarkers, resetMainMarker, deleteAdvertisementMarkers, createCommonMarker};
+export {loadMap, createCommonMarkers, resetMainMarker, deleteAdvertisementMarkers};

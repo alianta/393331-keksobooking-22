@@ -1,5 +1,3 @@
-const MAX_ADVERTISEMENTS_COUNT = 10;
-
 const serverAddress = 'https://22.javascript.pages.academy/keksobooking/data';
 
 /**
@@ -9,7 +7,7 @@ const getAdvertisments = (onSuccess) => {
   fetch(serverAddress)
     .then((response) => response.json())
     .then((advertisements) => {
-      onSuccess(advertisements.slice(0, MAX_ADVERTISEMENTS_COUNT));
+      onSuccess(advertisements);
     })
     .catch(() => {
       //отобразить сообщение что данные не подгрузились

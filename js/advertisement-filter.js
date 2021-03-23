@@ -1,4 +1,4 @@
-import {deleteAdvertisementMarkers, createCommonMarker} from './map.js';
+import {deleteAdvertisementMarkers} from './map.js';
 const ANY = 'any';
 
 const filter = document.querySelector('.map__filters');
@@ -12,12 +12,13 @@ const houseGuests = filter.querySelector('#housing-guests');
 /**
  * Фильтрация  и отображение на карте массива объявлений
  * @param {array} advertisements  - массив для фильтрации
+ * @returns - новый массив с отфильтрованными объявлениями
  */
 const advertisementFilter = (advertisements) => {
+  let filterAdvertisements = [];
   const houseTypeValue = houseType.value;
   const houseRoomsValue = houseRooms.value;
   const houseGuestsValue = houseGuests.value;
-
   let isType = true;
   let isRooms = true;
   let isGuests = true;
@@ -37,9 +38,10 @@ const advertisementFilter = (advertisements) => {
     }
 
     if(isType && isRooms && isGuests) {
-      createCommonMarker(ad);
+      filterAdvertisements.push(ad);
     }
   });
+  return filterAdvertisements;
 }
 
 /**
