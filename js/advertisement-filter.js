@@ -1,3 +1,4 @@
+/* global _:readonly */
 import {deleteAdvertisementMarkers} from './map.js';
 import {createCommonMarkers} from './map.js';
 
@@ -7,6 +8,7 @@ const PRICE_HIGHT = 50000;
 const PRICE_LOW_VALUE = 'low';
 const PRICE_MIDDLE_VALUE = 'middle';
 const PRICE_HIGHT_VALUE = 'high';
+const RERENDER_DELAY = 500;
 
 const filter = document.querySelector('.map__filters');
 const houseType = filter.querySelector('#housing-type');
@@ -78,9 +80,12 @@ const advertisementFilter = (advertisements) => {
  * @param {function} cb - функция, вызываемая при наступлении события
  */
 const changeUserForm = (ad) => {
-  filter.addEventListener('change', () => {
-    createCommonMarkers(advertisementFilter(ad));
-  });
+  filter.addEventListener('change', _.debounce(
+    () => {
+      createCommonMarkers(advertisementFilter(ad));
+    },
+    RERENDER_DELAY,
+  ));
 }
 
 export {advertisementFilter, changeUserForm};
