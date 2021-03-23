@@ -1,4 +1,6 @@
 import {deleteAdvertisementMarkers} from './map.js';
+import {createCommonMarkers} from './map.js';
+
 const ANY = 'any';
 
 const filter = document.querySelector('.map__filters');
@@ -46,9 +48,9 @@ const advertisementFilter = (advertisements) => {
  * Обработчик событий на измнение пользователем фильтра
  * @param {function} cb - функция, вызываемая при наступлении события
  */
-const changeUserForm = (cb) => {
+const changeUserForm = (ad) => {
   filter.addEventListener('change', () => {
-    cb();
+    createCommonMarkers(advertisementFilter(ad));
   });
 }
 
