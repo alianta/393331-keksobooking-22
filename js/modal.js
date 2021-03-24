@@ -25,6 +25,7 @@ const addModalWindows = () => {
 const onSuccess = (advertisments) => {
   const successMessage = main.querySelector('.success');
   successMessage.classList.remove('visually-hidden');
+  successMessage.style.zIndex = '1000';
   document.addEventListener('click', () => {
     main.querySelector('.success').classList.add('visually-hidden');
   });
@@ -47,6 +48,7 @@ const onError = () => {
   const errorMessage = main.querySelector('.error');
   const errorButton = main.querySelector('.error__button');
   errorMessage.classList.remove('visually-hidden');
+  errorMessage.style.zIndex = '1000';
   document.addEventListener('click', () => {
     main.querySelector('.error').classList.add('visually-hidden');
   });
