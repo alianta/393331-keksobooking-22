@@ -7,7 +7,7 @@ const form = document.querySelector('.ad-form');
 /**
  * Фцнкция добавления обработчика события "отправка формы"
  */
-const submitForm = () => {
+const submitForm = (advertisments) => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const formData = new FormData(evt.target);
@@ -20,7 +20,7 @@ const submitForm = () => {
       },
     )
       .then(res => res.ok ? res : Promise.reject(res))
-      .then(() => onSuccess())
+      .then(() => onSuccess(advertisments))
       .catch(() => onError());
   });
 }

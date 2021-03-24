@@ -1,5 +1,6 @@
 import {isEscEvent} from './util.js';
 import {clearFilter, clearForm} from './form.js';
+import {createCommonMarkers} from './map.js';
 
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
@@ -21,7 +22,7 @@ const addModalWindows = () => {
 /**
  * Функция показа и скрытия модального окна при успешной отправке формы
  */
-const onSuccess = () => {
+const onSuccess = (advertisments) => {
   const successMessage = main.querySelector('.success');
   successMessage.classList.remove('visually-hidden');
   document.addEventListener('click', () => {
@@ -33,9 +34,10 @@ const onSuccess = () => {
       main.querySelector('.success').classList.add('visually-hidden');
     }
   });
-  //возврат фильтра формы в исходное состояние после успешной отправки
+  //возврат фильтра формы в исходное состояние и отрисовка пинов после успешной отправки
   clearFilter();
   clearForm();
+  createCommonMarkers(advertisments);
 }
 
 /**

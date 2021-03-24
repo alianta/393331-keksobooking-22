@@ -17,7 +17,6 @@ formChangeOnUserInput();
 getAdvertisments((advertisments) => {
   createCommonMarkers(advertisments);
   changeUserForm(advertisments);
+  resetForm(advertisments);
+  submitForm(advertisments);
 });
-
-submitForm();
-resetForm();
