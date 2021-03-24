@@ -144,10 +144,14 @@ const priceInputValidation = () => {
  */
 const roomAndCapacityValidation = () => {
   roomCount.addEventListener('change', () => {
+    const roomContValue = parseInt(roomCount.value);
+    const capacityCountValue = parseInt(capacityCount.value);
 
-    if (roomCount.value != NOT_FOR_GUESTS_ROOM_VALUE && capacityCount.value == NOT_FOR_GUESTS_CAPACITY_VALUE) {
-      roomCount.setCustomValidity('Не для гостей возможен только тип комнат "100 комнат"');
-    } else if (roomCount.value < capacityCount.value) {
+    if (roomContValue !== NOT_FOR_GUESTS_ROOM_VALUE && capacityCountValue === NOT_FOR_GUESTS_CAPACITY_VALUE) {
+      roomCount.setCustomValidity('Для варианта "Не для гостей" возможен только тип комнат "100 комнат"');
+    }else if (roomContValue === NOT_FOR_GUESTS_ROOM_VALUE && capacityCountValue !== NOT_FOR_GUESTS_CAPACITY_VALUE) {
+      roomCount.setCustomValidity('Тип комнат "100 комнат" возможен только для варианта "Не для гостей"');
+    }else if (roomContValue < capacityCountValue) {
       roomCount.setCustomValidity(`Количество комнат должно  быть не меньше  ${capacityCount.value}`);
     } else {
       roomCount.setCustomValidity('');
@@ -156,11 +160,16 @@ const roomAndCapacityValidation = () => {
     roomCount.reportValidity();
   });
 
-  capacityCount.addEventListener('change', () => {
 
-    if (roomCount.value == NOT_FOR_GUESTS_ROOM_VALUE && capacityCount.value != NOT_FOR_GUESTS_CAPACITY_VALUE) {
+  capacityCount.addEventListener('change', () => {
+    const roomContValue = parseInt(roomCount.value);
+    const capacityCountValue = parseInt(capacityCount.value);
+
+    if (roomContValue == NOT_FOR_GUESTS_ROOM_VALUE && capacityCountValue !== NOT_FOR_GUESTS_CAPACITY_VALUE) {
       capacityCount.setCustomValidity('Для типа комнат "100 комнат" возможен вариат только "не для гостей"');
-    } else if (roomCount.value < capacityCount.value || capacityCount.value == NOT_FOR_GUESTS_CAPACITY_VALUE) {
+    } else if (roomContValue !== NOT_FOR_GUESTS_ROOM_VALUE && capacityCountValue === NOT_FOR_GUESTS_CAPACITY_VALUE) {
+      capacityCount.setCustomValidity('Вариант "не для гостей" возможен только для типа комнат "100 комнат"');
+    } else if (roomContValue < parseInt(capacityCount.value) ) {
       capacityCount.setCustomValidity(`Количество гостей должно быть не больше  ${roomCount.value}`);
     } else {
       capacityCount.setCustomValidity('');
