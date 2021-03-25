@@ -113,13 +113,14 @@ addMarkerToMap(mainPinMarker);
  * Функция сброса гавного маркера в исходное состояние
  */
 const resetMainMarker = () => {
-  map.setView(L.latLng(LATITUDE, LONGITUDE));
-  map.setZoom(MAP_ZOOM);
+
   map.eachLayer((layer) => {
     if (layer._id === 'main') {
       layer.setLatLng([LATITUDE, LONGITUDE]);
     }
   });
+  map.setView(L.latLng(LATITUDE, LONGITUDE),MAP_ZOOM);
+ // map.setZoom(MAP_ZOOM);
 }
 
 /**

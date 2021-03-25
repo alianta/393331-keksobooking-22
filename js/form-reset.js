@@ -3,13 +3,13 @@ import {resetMainMarker, createCommonMarkers} from './map.js';
 
 const form = document.querySelector('.ad-form');
 
-const resetForm = (ad) => {
+const resetForm = (ads) => {
   form.addEventListener('reset', (evt) => {
     evt.preventDefault();
     clearFilter();
     clearForm();
+    createCommonMarkers(ads);
     resetMainMarker();
-    createCommonMarkers(ad);
   });
 }
 export {resetForm};

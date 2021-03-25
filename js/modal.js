@@ -1,6 +1,6 @@
 import {isEscEvent} from './util.js';
 import {clearFilter, clearForm} from './form.js';
-import {createCommonMarkers} from './map.js';
+import {createCommonMarkers, resetMainMarker} from './map.js';
 
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
@@ -39,6 +39,7 @@ const onSuccess = (advertisments) => {
   clearFilter();
   clearForm();
   createCommonMarkers(advertisments);
+  resetMainMarker();
 }
 
 /**
