@@ -5,7 +5,7 @@ const TYPES = new Map([
   ['bungalow', 'Бунгало'],
 ]);
 
-const adCardTemplate = document.querySelector('#card').content.querySelector('.popup');
+const advertisementCardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 /**
  * Функция создания карточки по html шаблону.
@@ -13,16 +13,16 @@ const adCardTemplate = document.querySelector('#card').content.querySelector('.p
  * @returns {htmlelement} - html элемент - карточка, созданнная по шаблону
  */
 const createCard = (data) => {
-  const adCardElement = adCardTemplate.cloneNode(true);
-  adCardElement.querySelector('.popup__avatar').src = data.author.avatar;
-  adCardElement.querySelector('.popup__title').textContent = data.offer.title;
-  adCardElement.querySelector('.popup__text--address').textContent = data.offer.address;
-  adCardElement.querySelector('.popup__text--price').textContent = `${data.offer.price} ₽/ночь`;
-  adCardElement.querySelector('.popup__type').textContent = TYPES.get(data.offer.type);
-  adCardElement.querySelector('.popup__text--capacity').textContent = `${data.offer.rooms} комнаты для ${data.offer.guests} гостей`;
-  adCardElement.querySelector('.popup__text--time').textContent = `Заезд после ${data.offer.checkin}, выезд до ${data.offer.checkout}`;
-  const cardFeatures = adCardElement.querySelector('.popup__features');
-  const cardFeature = adCardElement.querySelector('.popup__feature');
+  const advertisementCardElement = advertisementCardTemplate.cloneNode(true);
+  advertisementCardElement.querySelector('.popup__avatar').src = data.author.avatar;
+  advertisementCardElement.querySelector('.popup__title').textContent = data.offer.title;
+  advertisementCardElement.querySelector('.popup__text--address').textContent = data.offer.address;
+  advertisementCardElement.querySelector('.popup__text--price').textContent = `${data.offer.price} ₽/ночь`;
+  advertisementCardElement.querySelector('.popup__type').textContent = TYPES.get(data.offer.type);
+  advertisementCardElement.querySelector('.popup__text--capacity').textContent = `${data.offer.rooms} комнаты для ${data.offer.guests} гостей`;
+  advertisementCardElement.querySelector('.popup__text--time').textContent = `Заезд после ${data.offer.checkin}, выезд до ${data.offer.checkout}`;
+  const cardFeatures = advertisementCardElement.querySelector('.popup__features');
+  const cardFeature = advertisementCardElement.querySelector('.popup__feature');
   while (cardFeatures.firstChild) {
     cardFeatures.removeChild(cardFeatures.firstChild);
   }
@@ -32,9 +32,9 @@ const createCard = (data) => {
     cardFeatures.appendChild(newFeature);
   });
 
-  adCardElement.querySelector('.popup__description').textContent = data.offer.description;
+  advertisementCardElement.querySelector('.popup__description').textContent = data.offer.description;
 
-  const cardPhotos = adCardElement.querySelector('.popup__photos')
+  const cardPhotos = advertisementCardElement.querySelector('.popup__photos')
   const cardPhoto = cardPhotos.querySelector('.popup__photo');
   cardPhoto.remove();
   data.offer.photos.forEach((photo) => {
@@ -42,7 +42,7 @@ const createCard = (data) => {
     newPhoto.src = photo;
     cardPhotos.appendChild(newPhoto);
   });
-  return adCardElement;
+  return advertisementCardElement;
 }
 
 export {createCard};

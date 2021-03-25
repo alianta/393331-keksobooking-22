@@ -6,6 +6,7 @@ const form = document.querySelector('.ad-form');
 
 /**
  * Фцнкция добавления обработчика события "отправка формы"
+ * @param {array} advertisments - массив объявлений
  */
 const submitForm = (advertisments) => {
   form.addEventListener('submit', (evt) => {
@@ -24,6 +25,5 @@ const submitForm = (advertisments) => {
       .catch(() => onError());
   });
 }
-
 
 export {submitForm};

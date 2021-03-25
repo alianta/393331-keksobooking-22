@@ -1,12 +1,15 @@
-const serverAddress = 'https://22.javascript.pages.academy/keksobooking/data';
+import {loadMap} from './map.js';
+
+const SERVER_ADDRESS = 'https://22.javascript.pages.academy/keksobooking/data';
 
 /**
  * Функция получает данные с объявлениями с сервера и отрисовывает их на карте
  */
 const getAdvertisments = (onSuccess) => {
-  fetch(serverAddress)
+  fetch(SERVER_ADDRESS)
     .then((response) => response.json())
     .then((advertisements) => {
+      loadMap();
       onSuccess(advertisements);
     })
     .catch(() => {

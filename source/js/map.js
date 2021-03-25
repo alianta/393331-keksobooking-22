@@ -90,13 +90,13 @@ const createCommonMarkers = (advertisements) => {
 
 /**
  * Функция добавлений одного маркера на карту
- * @param {object} ad  - объект с данными для объявления
+ * @param {object} advertisement  - объект с данными для объявления
  */
-const createCommonMarker = (ad) => {
+const createCommonMarker = (advertisement) => {
   const marker = new L.marker(
     {
-      lat: ad.location.lat,
-      lng: ad.location.lng,
+      lat: advertisement.location.lat,
+      lng: advertisement.location.lng,
     },
     {
       draggable: false,
@@ -104,7 +104,7 @@ const createCommonMarker = (ad) => {
     },
   );
   marker._id = 'advertisement';
-  addMarkerToMap(marker, createCard(ad));
+  addMarkerToMap(marker, createCard(advertisement));
 }
 
 addMarkerToMap(mainPinMarker);

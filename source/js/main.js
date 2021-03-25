@@ -8,11 +8,10 @@ import {addModalWindows} from './modal.js';
 import {changeUserForm} from './advertisement-filter.js';
 import {chooseAvatar, chooseImage} from './image.js';
 
-addModalWindows();
-formValidation();
 formDisable();
 mapFiltersDisable();
-loadMap();
+addModalWindows();
+formValidation();
 formChangeOnUserInput();
 
 getAdvertisments((advertisments) => {

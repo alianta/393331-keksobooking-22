@@ -29,11 +29,9 @@ const advertisementFilter = (advertisements) => {
   const houseGuestsValue = houseGuests.value;
   const checkedFeatures = filter.querySelectorAll('input[name="features"]:checked');
 
-
-  //удалить маркеры
   deleteAdvertisementMarkers();
 
-  advertisements.forEach((ad) => {
+  advertisements.forEach((advertisements) => {
     let isType = true;
     let isPrice = true;
     let isRooms = true;
@@ -41,13 +39,13 @@ const advertisementFilter = (advertisements) => {
     let isFeatures = true;
 
     if (houseTypeValue !== ANY) {
-      isType = ad.offer.type === houseTypeValue;
+      isType = advertisements.offer.type === houseTypeValue;
     }
     if (priceValue !== ANY) {
       let price;
-      if (ad.offer.price < PRICE_LOW) {
+      if (advertisements.offer.price < PRICE_LOW) {
         price = PRICE_LOW_VALUE;
-      } else if (ad.offer.price > PRICE_HIGHT) {
+      } else if (advertisements.offer.price > PRICE_HIGHT) {
         price = PRICE_HIGHT_VALUE;
       } else {
         price = PRICE_MIDDLE_VALUE;
@@ -56,20 +54,20 @@ const advertisementFilter = (advertisements) => {
       isPrice = price === priceValue;
     }
     if (houseRoomsValue !== ANY) {
-      isRooms = ad.offer.rooms.toString() === houseRoomsValue;
+      isRooms = advertisements.offer.rooms.toString() === houseRoomsValue;
     }
     if (houseGuestsValue !== ANY) {
-      isGuests = ad.offer.guests.toString() === houseGuestsValue;
+      isGuests = advertisements.offer.guests.toString() === houseGuestsValue;
     }
     if (checkedFeatures.length) {
       checkedFeatures.forEach((feature) => {
-        if (ad.offer.features.indexOf(feature.value) === -1) {
+        if (advertisements.offer.features.indexOf(feature.value) === -1) {
           isFeatures = false;
         }
       });
     }
     if (isType && isRooms && isGuests && isPrice && isFeatures) {
-      filterAdvertisements.push(ad);
+      filterAdvertisements.push(advertisements);
     }
   });
   return filterAdvertisements;
@@ -77,12 +75,12 @@ const advertisementFilter = (advertisements) => {
 
 /**
  * Обработчик событий на измнение пользователем фильтра
- * @param {function} cb - функция, вызываемая при наступлении события
+ * @param {array} advertisements - массов объявлений для фильтрации
  */
-const changeUserForm = (ad) => {
+const changeUserForm = (advertisements) => {
   filter.addEventListener('change', _.debounce(
     () => {
-      createCommonMarkers(advertisementFilter(ad));
+      createCommonMarkers(advertisementFilter(advertisements));
     },
     RERENDER_DELAY,
   ));

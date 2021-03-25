@@ -1,6 +1,5 @@
 /**
  * Функция, возвращающая случайное число из переданного диапазона включительно
- *
  * @param {number} min - начало диапазона (включительно)
  * @param {number} max - конец диапазона (включительно)
  * @param {number} n - точность (количество знаков после запятой). Для целых чисел не указывается
@@ -23,8 +22,8 @@ const generateRandomNumber = function (min, max, n = 0) {
   }
 
   //решение о генерации случайного целого числа взяла с https://learn.javascript.ru/task/random-int-min-max
-  let rand = beginNumber + Math.random() * (endNumber + 1 - beginNumber);
-  return (n == 0)? Math.floor(rand) : rand.toFixed(n);
+  let randomNumber = beginNumber + Math.random() * (endNumber + 1 - beginNumber);
+  return (n == 0)? Math.floor(randomNumber) : randomNumber.toFixed(n);
 }
 
 /**
