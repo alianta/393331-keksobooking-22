@@ -13,7 +13,6 @@ const getAdvertisments = (onSuccess) => {
       onSuccess(advertisements);
     })
     .catch(() => {
-      //отобразить сообщение что данные не подгрузились
       const map = document.querySelector('.map')
       const mapErrorMessage = document.createElement('div');
       mapErrorMessage.id = 'map-error';

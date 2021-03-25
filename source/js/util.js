@@ -7,23 +7,21 @@
  */
 const generateRandomNumber = function (min, max, n = 0) {
   if (min < 0 || max < 0) {
-    return null; //неверный диапазон (может быть только положительный или = 0)
+    return null;
   }
-  if (min == max) {
+  if (min === max) {
     return min.toFixed(n);
   }
   let beginNumber = min;
   let endNumber = max;
 
-  //если начало диапазона генерации больше конца диапазона - поменять их местами
   if (beginNumber > endNumber) {
     beginNumber = max;
     endNumber = min
   }
 
-  //решение о генерации случайного целого числа взяла с https://learn.javascript.ru/task/random-int-min-max
   let randomNumber = beginNumber + Math.random() * (endNumber + 1 - beginNumber);
-  return (n == 0)? Math.floor(randomNumber) : randomNumber.toFixed(n);
+  return (n === 0)? Math.floor(randomNumber) : randomNumber.toFixed(n);
 }
 
 /**

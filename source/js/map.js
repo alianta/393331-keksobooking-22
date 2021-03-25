@@ -69,7 +69,7 @@ const addMarkerToMap = (marker, markerPopup = null) => {
     showCoordinate(`${currentCoordinate.lat.toFixed(COORDINATE_PRECISION)}, ${currentCoordinate.lng.toFixed(COORDINATE_PRECISION)}`);
   }).addTo(map);
 
-  if(markerPopup){
+  if (markerPopup) {
     marker.bindPopup(markerPopup);
   }
 }

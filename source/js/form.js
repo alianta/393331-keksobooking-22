@@ -149,9 +149,9 @@ const roomAndCapacityValidation = () => {
 
     if (roomContValue !== NOT_FOR_GUESTS_ROOM_VALUE && capacityCountValue === NOT_FOR_GUESTS_CAPACITY_VALUE) {
       roomCount.setCustomValidity('Для варианта "Не для гостей" возможен только тип комнат "100 комнат"');
-    }else if (roomContValue === NOT_FOR_GUESTS_ROOM_VALUE && capacityCountValue !== NOT_FOR_GUESTS_CAPACITY_VALUE) {
+    } else if (roomContValue === NOT_FOR_GUESTS_ROOM_VALUE && capacityCountValue !== NOT_FOR_GUESTS_CAPACITY_VALUE) {
       roomCount.setCustomValidity('Тип комнат "100 комнат" возможен только для варианта "Не для гостей"');
-    }else if (roomContValue < capacityCountValue) {
+    } else if (roomContValue < capacityCountValue) {
       roomCount.setCustomValidity(`Количество комнат должно  быть не меньше  ${capacityCount.value}`);
     } else {
       roomCount.setCustomValidity('');
@@ -165,7 +165,7 @@ const roomAndCapacityValidation = () => {
     const roomContValue = parseInt(roomCount.value);
     const capacityCountValue = parseInt(capacityCount.value);
 
-    if (roomContValue == NOT_FOR_GUESTS_ROOM_VALUE && capacityCountValue !== NOT_FOR_GUESTS_CAPACITY_VALUE) {
+    if (roomContValue === NOT_FOR_GUESTS_ROOM_VALUE && capacityCountValue !== NOT_FOR_GUESTS_CAPACITY_VALUE) {
       capacityCount.setCustomValidity('Для типа комнат "100 комнат" возможен вариат только "не для гостей"');
     } else if (roomContValue !== NOT_FOR_GUESTS_ROOM_VALUE && capacityCountValue === NOT_FOR_GUESTS_CAPACITY_VALUE) {
       capacityCount.setCustomValidity('Вариант "не для гостей" возможен только для типа комнат "100 комнат"');
@@ -206,7 +206,7 @@ const clearFilter = () => {
 
   const featuresInputs = mapFilter.querySelector('#housing-features').querySelectorAll('input');
   featuresInputs.forEach((input) => {
-    if(input.checked){
+    if (input.checked) {
       input.checked = false;
     }
   });
@@ -234,7 +234,7 @@ const clearForm = () => {
 
   const featuresInputs = features.querySelectorAll('input');
   featuresInputs.forEach((input) => {
-    if(input.checked){
+    if (input.checked) {
       input.checked = false;
     }
   });

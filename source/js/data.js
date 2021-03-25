@@ -1,30 +1,5 @@
 import {generateRandomNumber} from './util.js';
 
-const AvatarSettings = {
-  TEMPLATE_START: 'img/avatars/user',
-  TEMPLATE_END: '.png',
-  START_NUMBER: 1,
-  END_NUMBER: 8,
-};
-
-const PhotosSettings = {
-  PHOTOS: [
-    'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
-    'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
-    'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
-  ],
-  MIN_COUNT: 4,
-  MAX_COUNT: 11,
-};
-
-const LocationSettings = {
-  START_X: 35.65000,
-  END_X: 35.70000,
-  START_Y: 139.70000,
-  END_Y: 139.80000,
-  PRECISION: 5,
-};
-
 const TITLES = [
   'аппартаменты Сакура',
   'коттедж Зимний',
@@ -55,6 +30,37 @@ const DESCRIPTIONS = [
   'трехкомнатная квартира для всей семьи',
 ];
 
+const CHECK_IN_OUT_TIME = [
+  '12:00',
+  '13:00',
+  '14:00',
+];
+
+const AvatarSettings = {
+  TEMPLATE_START: 'img/avatars/user',
+  TEMPLATE_END: '.png',
+  START_NUMBER: 1,
+  END_NUMBER: 8,
+};
+
+const PhotosSettings = {
+  PHOTOS: [
+    'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
+    'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
+    'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
+  ],
+  MIN_COUNT: 4,
+  MAX_COUNT: 11,
+};
+
+const LocationSettings = {
+  START_X: 35.65000,
+  END_X: 35.70000,
+  START_Y: 139.70000,
+  END_Y: 139.80000,
+  PRECISION: 5,
+};
+
 const PriceSettings = {
   MIN: 2000,
   MAX: 25000,
@@ -66,11 +72,6 @@ const RoomSettings = {
   MIN_GUESTS: 1,
   MAX_GIESTS: 6,
 }
-const CHECK_IN_OUT_TIME = [
-  '12:00',
-  '13:00',
-  '14:00',
-];
 
 /**
  * Функция, возвращающая массив случайной длины из значений переданного массива
@@ -83,7 +84,7 @@ const getNewRandomArray = (array, minCount, maxCount) => {
   let newArray = [];
   const newArrayCount = generateRandomNumber(minCount, maxCount);
   const arrayLength = array.length-1;
-  for(let i=0; i< newArrayCount; i++) {
+  for(let i = 0; i < newArrayCount; i++) {
     const itemNumber = generateRandomNumber(0, arrayLength);
     newArray.push(array[itemNumber]);
   }
@@ -98,7 +99,7 @@ const getNewRandomArray = (array, minCount, maxCount) => {
 const getNewRandomArrayWithoutRepeat = (array) => {
   let newArray = [];
   const newArrayLength = generateRandomNumber(1, array.length);
-  for(let i=0; i< newArrayLength; i++) {
+  for(let i = 0; i < newArrayLength; i++) {
     const newElementNumber = generateRandomNumber(i, array.length - 1);
     newArray.push(array[newElementNumber]);
     [array[i], array[newElementNumber]] = [array[newElementNumber], array[i]];
