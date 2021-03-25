@@ -6,6 +6,7 @@ import {submitForm} from './form-submit.js';
 import {resetForm} from './form-reset.js';
 import {addModalWindows} from './modal.js';
 import {changeUserForm} from './advertisement-filter.js';
+import {chooseAvatar, chooseImage} from './image.js';
 
 addModalWindows();
 formValidation();
@@ -17,7 +18,9 @@ formChangeOnUserInput();
 getAdvertisments((advertisments) => {
   createCommonMarkers(advertisments);
   changeUserForm(advertisments);
+  resetForm(advertisments);
+  submitForm(advertisments);
 });
 
-submitForm();
-resetForm();
+chooseAvatar();
+chooseImage();

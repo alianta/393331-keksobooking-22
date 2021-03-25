@@ -2,12 +2,14 @@ const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const NOT_FOR_GUESTS_ROOM_VALUE = 100;
 const NOT_FOR_GUESTS_CAPACITY_VALUE = 0;
+const AVATAR_PLACEHOLDER = 'img/muffin-grey.svg';
 
 const form = document.querySelector('.ad-form');
 const formInteractivElements = form.querySelectorAll('fieldset');
 const mapFilter = document.querySelector('.map__filters');
 const mapFilterInteractiveElements = mapFilter.querySelectorAll('fieldset, select');
 const address = form.querySelector('#address');
+const avatarImg = form.querySelector('.ad-form-header__preview img');
 const titleInput = form.querySelector('#title');
 const priceInput = form.querySelector('#price');
 const roomCount = form.querySelector('#room_number');
@@ -17,6 +19,7 @@ const timein = form.querySelector('#timein');
 const timeout = form.querySelector('#timeout');
 const features = form.querySelector('.features');
 const description = form.querySelector('#description');
+const imagesBlock = document.querySelector('.ad-form__photo');
 
 /**
  * Функция перевода формы в неактивное состояние
@@ -141,10 +144,14 @@ const priceInputValidation = () => {
  */
 const roomAndCapacityValidation = () => {
   roomCount.addEventListener('change', () => {
+    const roomContValue = parseInt(roomCount.value);
+    const capacityCountValue = parseInt(capacityCount.value);
 
-    if (roomCount.value != NOT_FOR_GUESTS_ROOM_VALUE && capacityCount.value == NOT_FOR_GUESTS_CAPACITY_VALUE) {
-      roomCount.setCustomValidity('Не для гостей возможен только тип комнат "100 комнат"');
-    } else if (roomCount.value < capacityCount.value) {
+    if (roomContValue !== NOT_FOR_GUESTS_ROOM_VALUE && capacityCountValue === NOT_FOR_GUESTS_CAPACITY_VALUE) {
+      roomCount.setCustomValidity('Для варианта "Не для гостей" возможен только тип комнат "100 комнат"');
+    }else if (roomContValue === NOT_FOR_GUESTS_ROOM_VALUE && capacityCountValue !== NOT_FOR_GUESTS_CAPACITY_VALUE) {
+      roomCount.setCustomValidity('Тип комнат "100 комнат" возможен только для варианта "Не для гостей"');
+    }else if (roomContValue < capacityCountValue) {
       roomCount.setCustomValidity(`Количество комнат должно  быть не меньше  ${capacityCount.value}`);
     } else {
       roomCount.setCustomValidity('');
@@ -153,11 +160,16 @@ const roomAndCapacityValidation = () => {
     roomCount.reportValidity();
   });
 
-  capacityCount.addEventListener('change', () => {
 
-    if (roomCount.value == NOT_FOR_GUESTS_ROOM_VALUE && capacityCount.value != NOT_FOR_GUESTS_CAPACITY_VALUE) {
+  capacityCount.addEventListener('change', () => {
+    const roomContValue = parseInt(roomCount.value);
+    const capacityCountValue = parseInt(capacityCount.value);
+
+    if (roomContValue == NOT_FOR_GUESTS_ROOM_VALUE && capacityCountValue !== NOT_FOR_GUESTS_CAPACITY_VALUE) {
       capacityCount.setCustomValidity('Для типа комнат "100 комнат" возможен вариат только "не для гостей"');
-    } else if (roomCount.value < capacityCount.value || capacityCount.value == NOT_FOR_GUESTS_CAPACITY_VALUE) {
+    } else if (roomContValue !== NOT_FOR_GUESTS_ROOM_VALUE && capacityCountValue === NOT_FOR_GUESTS_CAPACITY_VALUE) {
+      capacityCount.setCustomValidity('Вариант "не для гостей" возможен только для типа комнат "100 комнат"');
+    } else if (roomContValue < parseInt(capacityCount.value) ) {
       capacityCount.setCustomValidity(`Количество гостей должно быть не больше  ${roomCount.value}`);
     } else {
       capacityCount.setCustomValidity('');
@@ -204,6 +216,8 @@ const clearFilter = () => {
  * Сброс полей формы в исходное состояние
  */
 const clearForm = () => {
+  avatarImg.src = AVATAR_PLACEHOLDER;
+
   titleInput.value = '';
 
   type.value = type.querySelector('[selected]').value;
@@ -226,5 +240,9 @@ const clearForm = () => {
   });
 
   description.value = '';
+
+  while (imagesBlock.firstChild) {
+    imagesBlock.removeChild(imagesBlock.lastChild);
+  }
 }
 export {formDisable, mapFiltersDisable, formActive, mapFiltersActive, showCoordinate, formValidation, clearFilter, clearForm};
