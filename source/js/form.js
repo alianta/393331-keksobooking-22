@@ -105,27 +105,16 @@ const titleInputValidation = () => {
  * Функция валидации поля "Цена за ночь" формы
  */
 const priceInputValidation = () => {
-  let minPrice = priceInput.min;
-  let maxPrice = priceInput.max;
+  let minPrice = parseInt(priceInput.min);
+  let maxPrice = parseInt(priceInput.max);
   priceInput.addEventListener('focus',() => {
-    minPrice = priceInput.min;
-    maxPrice = priceInput.max;
-  });
-
-  priceInput.addEventListener('invalid', () => {
-    if (priceInput.validity.rangeUnderflow) {
-      priceInput.setCustomValidity(`Цена за ночь долна быть не меньше  ${minPrice}`);
-    } else if (priceInput.validity.tooLong) {
-      priceInput.setCustomValidity(`Цена за ночь не долна превышать ${maxPrice}`);
-    } else if (priceInput.validity.rangeOverflow) {
-      priceInput.setCustomValidity('Обязательное поле');
-    } else {
-      priceInput.setCustomValidity('');
-    }
+    minPrice = parseInt(priceInput.min);
+    maxPrice = parseInt(priceInput.max);
   });
 
   priceInput.addEventListener('input', () => {
-    const value = titleInput.value;
+    const value = parseInt(priceInput.value);
+    priceInput.value = priceInput.value.replace (/\D/, '');
 
     if (value < minPrice) {
       priceInput.setCustomValidity(`Цена за ночь долна быть не меньше  ${minPrice}`);
@@ -134,7 +123,6 @@ const priceInputValidation = () => {
     } else {
       priceInput.setCustomValidity('');
     }
-
     priceInput.reportValidity();
   });
 }
@@ -155,6 +143,7 @@ const roomAndCapacityValidation = () => {
       roomCount.setCustomValidity(`Количество комнат должно  быть не меньше  ${capacityCount.value}`);
     } else {
       roomCount.setCustomValidity('');
+      capacityCount.setCustomValidity('');
     }
 
     roomCount.reportValidity();
@@ -173,6 +162,7 @@ const roomAndCapacityValidation = () => {
       capacityCount.setCustomValidity(`Количество гостей должно быть не больше  ${roomCount.value}`);
     } else {
       capacityCount.setCustomValidity('');
+      roomCount.setCustomValidity('');
     }
 
     capacityCount.reportValidity();
