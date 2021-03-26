@@ -24,17 +24,22 @@ const addModalWindows = () => {
  */
 const onSuccess = (advertisments) => {
   const successMessage = main.querySelector('.success');
-  successMessage.classList.remove('visually-hidden');
-  successMessage.style.zIndex = '1000';
-  document.addEventListener('click', () => {
-    main.querySelector('.success').classList.add('visually-hidden');
-  }, {once: true});
-  document.addEventListener('keydown', (evt) => {
+  const closeModalOnKeydown = (evt) => {
     if (isEscEvent(evt)) {
       evt.preventDefault();
       main.querySelector('.success').classList.add('visually-hidden');
+      document.removeEventListener('keydown',closeModalOnKeydown);
     }
-  }, {once: true});
+  };
+  const closeModalOnClick = () => {
+    main.querySelector('.success').classList.add('visually-hidden');
+    document.removeEventListener('click',closeModalOnClick);
+  };
+  successMessage.classList.remove('visually-hidden');
+  successMessage.style.zIndex = '1000';
+
+  document.addEventListener('click', closeModalOnClick);
+  document.addEventListener('keydown',closeModalOnKeydown);
   //возврат фильтра формы в исходное состояние и отрисовка пинов после успешной отправки
   clearFilter();
   clearForm();
@@ -48,20 +53,24 @@ const onSuccess = (advertisments) => {
 const onError = () => {
   const errorMessage = main.querySelector('.error');
   const errorButton = main.querySelector('.error__button');
-  errorMessage.classList.remove('visually-hidden');
-  errorMessage.style.zIndex = '1000';
-  document.addEventListener('click', () => {
-    main.querySelector('.error').classList.add('visually-hidden');
-  }, {once: true});
-  document.addEventListener('keydown', (evt) => {
+  const closeModalOnKeydown =  (evt) => {
     if (isEscEvent(evt)) {
       evt.preventDefault();
       main.querySelector('.error').classList.add('visually-hidden');
+      document.removeEventListener('keydown', closeModalOnKeydown);
     }
-  });
+  };
+  const closeModalOnClick = () => {
+    main.querySelector('.error').classList.add('visually-hidden');
+    document.removeEventListener('click', closeModalOnClick);
+  };
+  errorMessage.classList.remove('visually-hidden');
+  errorMessage.style.zIndex = '1000';
+  document.addEventListener('click', closeModalOnClick);
+  document.addEventListener('keydown', closeModalOnKeydown);
   errorButton.addEventListener('click', () => {
     main.querySelector('.error').classList.add('visually-hidden');
-  }, {once: true});
+  });
 }
 
 export {addModalWindows, onSuccess, onError};
