@@ -28,13 +28,13 @@ const onSuccess = (advertisments) => {
   successMessage.style.zIndex = '1000';
   document.addEventListener('click', () => {
     main.querySelector('.success').classList.add('visually-hidden');
-  });
+  }, {once: true});
   document.addEventListener('keydown', (evt) => {
     if (isEscEvent(evt)) {
       evt.preventDefault();
       main.querySelector('.success').classList.add('visually-hidden');
     }
-  });
+  }, {once: true});
   //возврат фильтра формы в исходное состояние и отрисовка пинов после успешной отправки
   clearFilter();
   clearForm();
@@ -52,7 +52,7 @@ const onError = () => {
   errorMessage.style.zIndex = '1000';
   document.addEventListener('click', () => {
     main.querySelector('.error').classList.add('visually-hidden');
-  });
+  }, {once: true});
   document.addEventListener('keydown', (evt) => {
     if (isEscEvent(evt)) {
       evt.preventDefault();
@@ -61,7 +61,7 @@ const onError = () => {
   });
   errorButton.addEventListener('click', () => {
     main.querySelector('.error').classList.add('visually-hidden');
-  });
+  }, {once: true});
 }
 
 export {addModalWindows, onSuccess, onError};
