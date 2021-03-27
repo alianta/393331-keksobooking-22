@@ -24,22 +24,22 @@ const addModalWindows = () => {
  */
 const onSuccess = (advertisments) => {
   const successMessage = main.querySelector('.success');
-  const closeModalOnKeydown = (evt) => {
+  const onKeydown = (evt) => {
     if (isEscEvent(evt)) {
       evt.preventDefault();
       main.querySelector('.success').classList.add('visually-hidden');
-      document.removeEventListener('keydown',closeModalOnKeydown);
+      document.removeEventListener('keydown',onKeydown);
     }
   };
-  const closeModalOnClick = () => {
+  const onClick = () => {
     main.querySelector('.success').classList.add('visually-hidden');
-    document.removeEventListener('click',closeModalOnClick);
+    document.removeEventListener('click',onClick);
   };
   successMessage.classList.remove('visually-hidden');
   successMessage.style.zIndex = '1000';
 
-  document.addEventListener('click', closeModalOnClick);
-  document.addEventListener('keydown',closeModalOnKeydown);
+  document.addEventListener('click', onClick);
+  document.addEventListener('keydown',onKeydown);
   //возврат фильтра формы в исходное состояние и отрисовка пинов после успешной отправки
   clearFilter();
   clearForm();
@@ -53,21 +53,21 @@ const onSuccess = (advertisments) => {
 const onError = () => {
   const errorMessage = main.querySelector('.error');
   const errorButton = main.querySelector('.error__button');
-  const closeModalOnKeydown =  (evt) => {
+  const onKeydown =  (evt) => {
     if (isEscEvent(evt)) {
       evt.preventDefault();
       main.querySelector('.error').classList.add('visually-hidden');
-      document.removeEventListener('keydown', closeModalOnKeydown);
+      document.removeEventListener('keydown', onKeydown);
     }
   };
-  const closeModalOnClick = () => {
+  const onClick = () => {
     main.querySelector('.error').classList.add('visually-hidden');
-    document.removeEventListener('click', closeModalOnClick);
+    document.removeEventListener('click', onClick);
   };
   errorMessage.classList.remove('visually-hidden');
   errorMessage.style.zIndex = '1000';
-  document.addEventListener('click', closeModalOnClick);
-  document.addEventListener('keydown', closeModalOnKeydown);
+  document.addEventListener('click', onClick);
+  document.addEventListener('keydown', onKeydown);
   errorButton.addEventListener('click', () => {
     main.querySelector('.error').classList.add('visually-hidden');
   });
