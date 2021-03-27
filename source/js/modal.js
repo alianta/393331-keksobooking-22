@@ -1,6 +1,6 @@
 import {isEscEvent} from './util.js';
 import {clearFilter, clearForm} from './form.js';
-import {createCommonMarkers} from './map.js';
+import {createCommonMarkers, resetMainMarker} from './map.js';
 
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
@@ -24,21 +24,27 @@ const addModalWindows = () => {
  */
 const onSuccess = (advertisments) => {
   const successMessage = main.querySelector('.success');
-  successMessage.classList.remove('visually-hidden');
-  successMessage.style.zIndex = '1000';
-  document.addEventListener('click', () => {
-    main.querySelector('.success').classList.add('visually-hidden');
-  });
-  document.addEventListener('keydown', (evt) => {
+  const onKeydown = (evt) => {
     if (isEscEvent(evt)) {
       evt.preventDefault();
       main.querySelector('.success').classList.add('visually-hidden');
+      document.removeEventListener('keydown',onKeydown);
     }
-  });
+  };
+  const onClick = () => {
+    main.querySelector('.success').classList.add('visually-hidden');
+    document.removeEventListener('click',onClick);
+  };
+  successMessage.classList.remove('visually-hidden');
+  successMessage.style.zIndex = '1000';
+
+  document.addEventListener('click', onClick);
+  document.addEventListener('keydown',onKeydown);
   //возврат фильтра формы в исходное состояние и отрисовка пинов после успешной отправки
   clearFilter();
   clearForm();
   createCommonMarkers(advertisments);
+  resetMainMarker();
 }
 
 /**
@@ -47,17 +53,21 @@ const onSuccess = (advertisments) => {
 const onError = () => {
   const errorMessage = main.querySelector('.error');
   const errorButton = main.querySelector('.error__button');
-  errorMessage.classList.remove('visually-hidden');
-  errorMessage.style.zIndex = '1000';
-  document.addEventListener('click', () => {
-    main.querySelector('.error').classList.add('visually-hidden');
-  });
-  document.addEventListener('keydown', (evt) => {
+  const onKeydown =  (evt) => {
     if (isEscEvent(evt)) {
       evt.preventDefault();
       main.querySelector('.error').classList.add('visually-hidden');
+      document.removeEventListener('keydown', onKeydown);
     }
-  });
+  };
+  const onClick = () => {
+    main.querySelector('.error').classList.add('visually-hidden');
+    document.removeEventListener('click', onClick);
+  };
+  errorMessage.classList.remove('visually-hidden');
+  errorMessage.style.zIndex = '1000';
+  document.addEventListener('click', onClick);
+  document.addEventListener('keydown', onKeydown);
   errorButton.addEventListener('click', () => {
     main.querySelector('.error').classList.add('visually-hidden');
   });
