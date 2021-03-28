@@ -21,7 +21,7 @@ const houseGuests = filter.querySelector('#housing-guests');
  * @param {array} advertisements  - массив для фильтрации
  * @returns - новый массив с отфильтрованными объявлениями
  */
-const advertisementFilter = (advertisements) => {
+const filterAdvertisements = (advertisements) => {
   let filterAdvertisements = [];
   const houseTypeValue = houseType.value;
   const priceValue = price.value;
@@ -80,10 +80,10 @@ const advertisementFilter = (advertisements) => {
 const changeUserForm = (advertisements) => {
   filter.addEventListener('change', _.debounce(
     () => {
-      createCommonMarkers(advertisementFilter(advertisements));
+      createCommonMarkers(filterAdvertisements(advertisements));
     },
     RERENDER_DELAY,
   ));
 }
 
-export {advertisementFilter, changeUserForm};
+export {filterAdvertisements, changeUserForm};

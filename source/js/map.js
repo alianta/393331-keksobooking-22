@@ -1,7 +1,7 @@
 /* global L:readonly */
 import {formActive, mapFiltersActive, showCoordinate} from './form.js';
 import {createCard} from './create-card.js';
-import {advertisementFilter} from './advertisement-filter.js';
+import {filterAdvertisements} from './advertisement-filter.js';
 
 const MAX_ADVERTISEMENTS_COUNT = 10;
 const LATITUDE = 35.6894;
@@ -81,7 +81,7 @@ const addMarkerToMap = (marker, markerPopup = null) => {
 const createCommonMarkers = (advertisements) => {
   deleteAdvertisementMarkers();
 
-  advertisementFilter(advertisements)
+  filterAdvertisements(advertisements)
     .slice(0, MAX_ADVERTISEMENTS_COUNT)
     .forEach((ad) => {
       createCommonMarker(ad);
