@@ -73,7 +73,7 @@ const showCoordinate = (string) => {
 /**
  * Функция валидации поля "заголовок объявления" формы
  */
-const titleInputValidation = () => {
+const checkTitle = () => {
   titleInput.addEventListener('invalid', () => {
     if (titleInput.validity.tooShort) {
       titleInput.setCustomValidity(`Заголовок объявления должен иметь минимум ${MIN_TITLE_LENGTH} символов`);
@@ -104,7 +104,7 @@ const titleInputValidation = () => {
 /**
  * Функция валидации поля "Цена за ночь" формы
  */
-const priceInputValidation = () => {
+const checkPrice = () => {
   let minPrice = parseInt(priceInput.min);
   let maxPrice = parseInt(priceInput.max);
   priceInput.addEventListener('focus',() => {
@@ -130,7 +130,7 @@ const priceInputValidation = () => {
 /**
  * Функция валидации полей "Количество комнат" и "Количество мест"
  */
-const roomAndCapacityValidation = () => {
+const checkRoomAndCapacity = () => {
   roomCount.addEventListener('change', () => {
     const roomContValue = parseInt(roomCount.value);
     const capacityCountValue = parseInt(capacityCount.value);
@@ -172,10 +172,10 @@ const roomAndCapacityValidation = () => {
 /**
  * Функция валидации формы
  */
-const formValidation = () => {
-  titleInputValidation();
-  priceInputValidation();
-  roomAndCapacityValidation();
+const checkForm = () => {
+  checkTitle();
+  checkPrice();
+  checkRoomAndCapacity();
 }
 
 /**
@@ -235,4 +235,4 @@ const clearForm = () => {
     imagesBlock.removeChild(imagesBlock.lastChild);
   }
 }
-export {formDisable, mapFiltersDisable, formActive, mapFiltersActive, showCoordinate, formValidation, clearFilter, clearForm};
+export {formDisable, mapFiltersDisable, formActive, mapFiltersActive, showCoordinate, checkForm, clearFilter, clearForm};

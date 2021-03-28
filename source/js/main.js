@@ -1,5 +1,5 @@
 import {formChangeOnUserInput} from './form-change-on-user-input.js';
-import {formDisable, mapFiltersDisable, formValidation} from './form.js';
+import {formDisable, mapFiltersDisable, checkForm} from './form.js';
 import {getAdvertisments} from './processing-server-data.js';
 import {createCommonMarkers} from './map.js';
 import {submitForm} from './form-submit.js';
@@ -11,7 +11,7 @@ import {chooseAvatar, chooseImage} from './image.js';
 formDisable();
 mapFiltersDisable();
 addModalWindows();
-formValidation();
+checkForm();
 formChangeOnUserInput();
 
 getAdvertisments((advertisments) => {
