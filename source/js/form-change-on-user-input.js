@@ -34,4 +34,4 @@ const formChangeOnUserInput = () => {
   });
 }
 
-export {formChangeOnUserInput};
+export {formChangeOnUserInput,changeDefaultPrice};

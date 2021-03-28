@@ -1,8 +1,16 @@
+import {changeDefaultPrice} from './form-change-on-user-input.js';
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const NOT_FOR_GUESTS_ROOM_VALUE = 100;
 const NOT_FOR_GUESTS_CAPACITY_VALUE = 0;
 const AVATAR_PLACEHOLDER = 'img/muffin-grey.svg';
+const PRICE_FOR_TYPES = new Map([
+  ['palace', 10000],
+  ['flat', 1000],
+  ['house', 5000],
+  ['bungalow', 0],
+]);
 
 const form = document.querySelector('.ad-form');
 const formInteractivElements = form.querySelectorAll('fieldset');
@@ -213,6 +221,8 @@ const clearForm = () => {
   type.value = type.querySelector('[selected]').value;
 
   priceInput.value = '';
+
+  changeDefaultPrice(PRICE_FOR_TYPES.get(type.value));
 
   timein.value = timein.querySelector('[selected]').value;
 
